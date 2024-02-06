@@ -29,11 +29,11 @@ func spawn_tree():
 func _on_tree_timer_timeout():
 	spawn_tree()
 
-#func _on_timer_timeout():
-	#if number_of_mobs < 25:
-		#spawn_mob()
-	#else:
-		#pass
+func _on_timer_timeout():
+	if number_of_mobs < 25:
+		spawn_mob()
+	else:
+		pass
 
 func _on_mob_died():
 	number_of_mobs -= 1

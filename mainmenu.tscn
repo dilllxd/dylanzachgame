@@ -74,4 +74,6 @@ label_settings = SubResource("LabelSettings_kswcu")
 
 [node name="main_menu" type="Node2D" parent="."]
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="end_game/GameOver/ColorRect/Label/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -7,7 +7,22 @@ var game_points = 0
 @onready var end_of_game_screen = $end_game/GameOver
 
 func _ready():
-	pass
+	var username = "Dilllxd"
+	var gold = game_points
+
+	var data_to_send = {
+	  "username": username,
+	  "gold": gold
+	}
+
+	var json = JSON.stringify(data_to_send)
+
+	var headers = [
+	  "Authorization: testauthorization",
+	  "Content-Type: application/json"
+	]
+
+	$HTTPRequest.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
 
 func update_points(points):
 	game_points = points
