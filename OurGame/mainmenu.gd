@@ -39,8 +39,13 @@ func _on_restart_button_pressed():
 	get_tree().reload_current_scene()
 
 func _on_play_button_pressed():
-	# TODO: Check for username being set _on_play_button_pressed, if not set then ask the user to set the username. We need to not let them play without a username set.
-	game_started.emit()
+	if username == null:
+		%Label1.visible = true
+		%ProgressBar1.visible = true
+	else:
+		%Label1.visible = false
+		%ProgressBar1.visible = false
+		game_started.emit()
 
 func _on_game_game_has_started():
 	main_menu.visible = false
