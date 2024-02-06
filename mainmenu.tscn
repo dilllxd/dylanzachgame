@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=12 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -8,6 +8,29 @@ font_size = 65
 
 [sub_resource type="LabelSettings" id="LabelSettings_kswcu"]
 font_size = 52
+
+[sub_resource type="LabelSettings" id="LabelSettings_3m0ym"]
+font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_ag0ll"]
+font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_28qhq"]
+font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_inano"]
+font_size = 52
+font_color = Color(0.0509804, 0.666667, 0.8, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgoao"]
+font_size = 52
+font_color = Color(0.0509804, 0.666667, 0.8, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rs4ii"]
+font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_rudnm"]
+font_size = 54
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_nk1tt")
@@ -74,6 +97,174 @@ label_settings = SubResource("LabelSettings_kswcu")
 
 [node name="main_menu" type="Node2D" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="main_menu"]
+offset_right = 1920.0
+offset_bottom = 1078.0
+
+[node name="QuitButton" type="Button" parent="main_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -201.0
+offset_top = -286.0
+offset_right = 201.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="main_menu/ColorRect/QuitButton"]
+layout_mode = 0
+offset_right = 402.0
+offset_bottom = 185.0
+text = "Quit"
+label_settings = SubResource("LabelSettings_3m0ym")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="main_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -423.0
+offset_right = 201.0
+offset_bottom = -237.0
+grow_horizontal = 2
+grow_vertical = 2
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="main_menu/ColorRect/PlayButton"]
+layout_mode = 0
+offset_right = 402.0
+offset_bottom = 185.0
+text = "Play Game"
+label_settings = SubResource("LabelSettings_ag0ll")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="main_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -93.0
+offset_right = 201.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="main_menu/ColorRect/SettingsButton"]
+layout_mode = 0
+offset_right = 402.0
+offset_bottom = 185.0
+text = "Options"
+label_settings = SubResource("LabelSettings_28qhq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="in_game" type="Node2D" parent="."]
+
+[node name="GameUI" type="CanvasLayer" parent="in_game"]
+visible = false
+
+[node name="in_game_score" type="Node2D" parent="in_game/GameUI"]
+
+[node name="score" type="Label" parent="in_game/GameUI/in_game_score"]
+offset_left = 21.0
+offset_right = 174.0
+offset_bottom = 80.0
+text = "Score:"
+label_settings = SubResource("LabelSettings_inano")
+
+[node name="points" type="Label" parent="in_game/GameUI/in_game_score"]
+offset_left = 189.0
+offset_right = 246.0
+offset_bottom = 80.0
+text = "0"
+label_settings = SubResource("LabelSettings_bgoao")
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
+[node name="settings" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="settings"]
+offset_right = 1920.0
+offset_bottom = 1078.0
+
+[node name="BackButton" type="Button" parent="settings/ColorRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -454.0
+offset_top = -289.0
+offset_right = -56.0
+offset_bottom = -57.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="settings/ColorRect/BackButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.5
+offset_top = -116.0
+offset_right = 198.5
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+label_settings = SubResource("LabelSettings_rs4ii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SaveUsername" type="Button" parent="settings/ColorRect"]
+layout_mode = 0
+offset_left = 1093.0
+offset_top = 433.0
+offset_right = 1531.0
+offset_bottom = 564.0
+
+[node name="Label" type="Label" parent="settings/ColorRect/SaveUsername"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 437.0
+offset_bottom = 130.0
+text = "Save Username"
+label_settings = SubResource("LabelSettings_rudnm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UsernameField" type="TextEdit" parent="settings/ColorRect"]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 476.0
+offset_right = 1062.0
+offset_bottom = 523.0
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Write your twitch username here!"
+
 [connection signal="pressed" from="end_game/GameOver/ColorRect/Label/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="main_menu/ColorRect/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="main_menu/ColorRect/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="main_menu/ColorRect/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]

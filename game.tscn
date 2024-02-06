@@ -75,8 +75,8 @@ position = Vector2(920, 933)
 position = Vector2(168, 684)
 
 [node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.2
-autostart = true
 
 [node name="GameOver" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -109,10 +109,10 @@ label_settings = SubResource("LabelSettings_3vp3d")
 [node name="TreeTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.4
-autostart = true
 
 [node name="UI" parent="." instance=ExtResource("4_q5fxp")]
 
+[connection signal="game_has_started" from="." to="UI" method="_on_game_game_has_started"]
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="TreeTimer" to="." method="_on_tree_timer_timeout"]

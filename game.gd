@@ -5,6 +5,19 @@ var number_of_mobs = 0
 var points = 0
 
 @onready var ui = $UI
+@onready var timer = $Timer
+@onready var ttimer = $TreeTimer
+
+signal game_has_started
+
+func _ready():
+	ui.game_started.connect(_start)
+
+func _start():
+	game_has_started.emit()
+	ui.update_ui()
+	timer.start()
+	ttimer.start()
 
 func spawn_mob():
 	const MOB_INSTANCE = preload("res://mob.tscn")
@@ -16,7 +29,7 @@ func spawn_mob():
 	new_mob.global_position = %PathFollow2D.global_position
 	await add_child(new_mob)
 	number_of_mobs += 1
-	print("A mob has spawned. Remaining mobs:", number_of_mobs)
+	#print("A mob has spawned. Remaining mobs:", number_of_mobs)
 
 func spawn_tree():
 	const TREE_INSTANCE = preload("res://pine_tree.tscn")
@@ -39,7 +52,8 @@ func _on_mob_died():
 	number_of_mobs -= 1
 	points += 1
 	ui.update_points(points)
-	print("A mob has died. Remaining mobs:", number_of_mobs)
+	ui.update_ui()
+	#print("A mob has died. Remaining mobs:", number_of_mobs)
 	if number_of_mobs < 25:
 		spawn_mob()
 
