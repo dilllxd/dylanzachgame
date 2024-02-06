@@ -4,7 +4,7 @@ on: push
 env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: OurGame
-  PROJECT_PATH: ./
+  PROJECT_PATH: OurGame
 
 jobs:
   export-windows:
