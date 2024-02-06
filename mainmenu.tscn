@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://b32glqlj34qgx"]
+
+[ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
+[ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5tkl5"]
+font_size = 65
+
+[sub_resource type="LabelSettings" id="LabelSettings_kswcu"]
+font_size = 52
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_nk1tt")
+
+[node name="end_game" type="Node2D" parent="."]
+
+[node name="GameOver" type="CanvasLayer" parent="end_game"]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="end_game/GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.701961)
+
+[node name="Label" type="Label" parent="end_game/GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -45.0
+offset_right = 140.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You Died"
+label_settings = SubResource("LabelSettings_5tkl5")
+
+[node name="RestartButton" type="Button" parent="end_game/GameOver/ColorRect/Label"]
+process_mode = 3
+light_mask = 0
+visibility_layer = 4
+layout_mode = 0
+offset_left = -8.0
+offset_top = 146.0
+offset_right = 287.0
+offset_bottom = 268.0
+icon = ExtResource("2_bkycp")
+icon_alignment = 1
+
+[node name="end_game_score" type="Node2D" parent="end_game/GameOver/ColorRect"]
+
+[node name="score" type="Label" parent="end_game/GameOver/ColorRect/end_game_score"]
+offset_left = 852.0
+offset_top = 410.0
+offset_right = 1005.0
+offset_bottom = 490.0
+text = "Score:"
+label_settings = SubResource("LabelSettings_kswcu")
+
+[node name="points" type="Label" parent="end_game/GameOver/ColorRect/end_game_score"]
+offset_left = 1025.0
+offset_top = 412.0
+offset_right = 1178.0
+offset_bottom = 492.0
+text = "0"
+label_settings = SubResource("LabelSettings_kswcu")
+
+[node name="main_menu" type="Node2D" parent="."]
+
+[connection signal="pressed" from="end_game/GameOver/ColorRect/Label/RestartButton" to="." method="_on_restart_button_pressed"]
