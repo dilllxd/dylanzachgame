@@ -33,13 +33,13 @@ func send_points():
 	$HTTPRequest.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
 
 func _on_restart_button_pressed():
-	# this all needs to be reworked into a statement that listens for when the http request is sent, then reloads
+	# TODO: Rework _on_restart_button_pressed into something that listens for the HTTPRequest to fail or succeed, then it is allowed to reload.
 	send_points()
 	await get_tree().create_timer(1).timeout 
 	get_tree().reload_current_scene()
 
 func _on_play_button_pressed():
-	# need to check for username being set, if not set then make display message about setting it
+	# TODO: Check for username being set _on_play_button_pressed, if not set then ask the user to set the username. We need to not let them play without a username set.
 	game_started.emit()
 
 func _on_game_game_has_started():

@@ -29,7 +29,7 @@ func spawn_mob():
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
 	number_of_mobs += 1
-	#print("A mob has spawned. Remaining mobs:", number_of_mobs)
+	#print("A mob has spawned. Remaining mobs:", number_of_mobs) # Only uncomment for debugging
 
 func spawn_tree():
 	const TREE_INSTANCE = preload("res://pine_tree.tscn")
@@ -53,7 +53,7 @@ func _on_mob_died():
 	points += 1
 	ui.update_points(points)
 	ui.update_ui()
-	#print("A mob has died. Remaining mobs:", number_of_mobs)
+	#print("A mob has died. Remaining mobs:", number_of_mobs) # Only uncomment for debugging
 	if number_of_mobs < 25:
 		spawn_mob()
 
