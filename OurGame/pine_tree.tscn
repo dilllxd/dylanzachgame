@@ -9,9 +9,9 @@ size = Vector2(34, 29)
 [node name="PineTree" type="StaticBody2D"]
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
-modulate = Color(0.713726, 0.870588, 0.894118, 1)
-position = Vector2(0, 2)
-scale = Vector2(0.761905, 0.846154)
+modulate = Color(0.27451, 0.603922, 0.411765, 0.486275)
+position = Vector2(-1, 8)
+scale = Vector2(0.836839, 0.929374)
 texture = ExtResource("1_bdach")
 
 [node name="PineTree" type="Sprite2D" parent="."]

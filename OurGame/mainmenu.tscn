@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=19 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="3_a10ml"]
+[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime/slime.tscn" id="4_5dw0s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5tkl5"]
 font_size = 62
@@ -18,16 +20,16 @@ font_size = 54
 [sub_resource type="LabelSettings" id="LabelSettings_28qhq"]
 font_size = 54
 
-[sub_resource type="LabelSettings" id="LabelSettings_7jx6o"]
-font_size = 24
-outline_color = Color(0.411765, 0.411765, 0.411765, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mvg0"]
 bg_color = Color(1, 0.0901961, 0.0588235, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_7jx6o"]
+font_size = 24
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_inano"]
 font_size = 52
@@ -193,21 +195,6 @@ label_settings = SubResource("LabelSettings_28qhq")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label1" type="Label" parent="main_menu/ColorRect"]
-unique_name_in_owner = true
-visible = false
-modulate = Color(0, 0, 0, 1)
-top_level = true
-light_mask = 0
-visibility_layer = 2
-layout_mode = 0
-offset_left = 674.0
-offset_top = 334.0
-offset_right = 1288.0
-offset_bottom = 376.0
-text = "Please type in your twitch username under \"Options\""
-label_settings = SubResource("LabelSettings_7jx6o")
-
 [node name="ProgressBar1" type="ProgressBar" parent="main_menu/ColorRect"]
 unique_name_in_owner = true
 visible = false
@@ -222,6 +209,33 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_3mvg0")
 min_value = 100.0
 value = 100.0
 show_percentage = false
+
+[node name="Label1" type="Label" parent="main_menu/ColorRect/ProgressBar1"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0, 0, 1)
+top_level = true
+light_mask = 0
+visibility_layer = 2
+layout_mode = 0
+offset_left = 674.0
+offset_top = 334.0
+offset_right = 1288.0
+offset_bottom = 376.0
+text = "Please type in your twitch username under \"Options\""
+label_settings = SubResource("LabelSettings_7jx6o")
+
+[node name="HappyBoo" parent="main_menu/ColorRect" instance=ExtResource("3_a10ml")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(339, 563)
+scale = Vector2(2.51033, 2.51033)
+
+[node name="Slime" parent="main_menu/ColorRect" instance=ExtResource("4_5dw0s")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(1552, 547)
+scale = Vector2(2.37277, 2.37277)
 
 [node name="in_game" type="Node2D" parent="."]
 

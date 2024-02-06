@@ -13,7 +13,8 @@ var username = null
 @onready var save_failed = $save_failed/SaveFailed
 
 func _ready():
-	pass
+	%HappyBoo.play_idle_animation()
+	%Slime.play_walk()
 
 func update_points(points):
 	game_points = points

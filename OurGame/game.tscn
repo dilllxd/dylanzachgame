@@ -29,6 +29,7 @@ offset_left = 3.0
 offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.380392, 0.737255, 0.360784, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_w3s25")]
 unique_name_in_owner = true

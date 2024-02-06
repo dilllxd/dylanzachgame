@@ -215,7 +215,7 @@ _data = {
 script = ExtResource("1_87y5x")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
-modulate = Color(0.898039, 0.878431, 0.831373, 1)
+modulate = Color(0.309804, 0.603922, 0.294118, 1)
 z_index = -1
 z_as_relative = false
 scale = Vector2(0.8, 0.8)
