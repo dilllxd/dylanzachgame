@@ -10,6 +10,7 @@ var username = null
 @onready var in_game_screen = $in_game/GameUI
 @onready var main_menu = $main_menu
 @onready var settings = $settings
+@onready var save_failed = $save_failed/SaveFailed
 
 func _ready():
 	pass
@@ -25,18 +26,28 @@ func on_game_over():
 	in_game_screen.visible = false
 	end_of_game_screen.visible = true
 	$end_game/GameOver/ColorRect/end_game_score/points.text = "%d" % game_points
+	$save_failed/SaveFailed/ColorRect/end_game_score/points.text = "%d" % game_points
 	
 func send_points():
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(self._on_request_completed)
+	
 	var data_to_send = {"username": username, "gold": game_points}
 	var json = JSON.stringify(data_to_send)
-	var headers = ["Authorization: testauthorization", "Content-Type: application/json"]	
-	$HTTPRequest.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
+	var headers = ["Authorization: testauthorization", "Content-Type: application/json"]
+	
+	http_request.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
+
+func _on_request_completed(result, response_code, headers, body):
+	if response_code == 200:
+		get_tree().reload_current_scene()
+	else:
+		end_of_game_screen.visible = false
+		save_failed.visible = true
 
 func _on_restart_button_pressed():
-	# TODO: Rework _on_restart_button_pressed into something that listens for the HTTPRequest to fail or succeed, then it is allowed to reload.
 	send_points()
-	await get_tree().create_timer(1).timeout 
-	get_tree().reload_current_scene()
 
 func _on_play_button_pressed():
 	if username == null:
@@ -64,3 +75,14 @@ func _on_back_button_pressed():
 
 func _on_save_username_pressed():
 	username = $settings/ColorRect/UsernameField.text
+	$settings/ColorRect/SaveUsername/Label.text = "Success!"
+	%Label1.visible = false
+	%ProgressBar1.visible = false
+	await get_tree().create_timer(3).timeout
+	$settings/ColorRect/SaveUsername/Label.text = "Save Username"
+
+func _on_restart_anyway_button_pressed():
+	get_tree().reload_current_scene()
+
+func _on_save_again_button_pressed():
+	send_points()

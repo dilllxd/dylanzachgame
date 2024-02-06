@@ -5,7 +5,7 @@ extends CharacterBody2D
 signal health_depleted
 
 var health = 100.0
-
+var isHealthDepleted = false
 var started = false
 
 func _ready():
@@ -32,5 +32,6 @@ func _physics_process(delta):
 		if overlapping_mobs.size() > 0:
 			health -= DAMAGE_RATE * overlapping_mobs.size() * delta
 			%ProgressBar.value = health
-			if health <= 0.0:
+			if health <= 0.0 and not isHealthDepleted:
+				isHealthDepleted = true
 				health_depleted.emit()

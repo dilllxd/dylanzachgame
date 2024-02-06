@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=17 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5tkl5"]
-font_size = 65
+font_size = 62
 
 [sub_resource type="LabelSettings" id="LabelSettings_kswcu"]
 font_size = 52
@@ -42,6 +42,15 @@ font_size = 54
 
 [sub_resource type="LabelSettings" id="LabelSettings_rudnm"]
 font_size = 54
+
+[sub_resource type="LabelSettings" id="LabelSettings_3jjmt"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_pltci"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_pmlq7"]
+font_size = 32
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_nk1tt")
@@ -235,8 +244,6 @@ offset_bottom = 80.0
 text = "0"
 label_settings = SubResource("LabelSettings_bgoao")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [node name="settings" type="Node2D" parent="."]
 visible = false
 
@@ -303,9 +310,108 @@ offset_bottom = 523.0
 theme_override_font_sizes/font_size = 24
 placeholder_text = "Write your twitch username here!"
 
+[node name="save_failed" type="Node2D" parent="."]
+
+[node name="SaveFailed" type="CanvasLayer" parent="save_failed"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="save_failed/SaveFailed"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.701961)
+
+[node name="SaveFailedLabel" type="Label" parent="save_failed/SaveFailed/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -505.0
+offset_top = -68.5
+offset_right = 505.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You failed to save:
+if you restart you will not recieve your score"
+label_settings = SubResource("LabelSettings_3jjmt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartAnywayButton" type="Button" parent="save_failed/SaveFailed/ColorRect/SaveFailedLabel"]
+process_mode = 3
+light_mask = 0
+visibility_layer = 4
+layout_mode = 0
+offset_left = 569.0
+offset_top = 168.5
+offset_right = 864.0
+offset_bottom = 290.5
+icon_alignment = 1
+
+[node name="RestartAnyways" type="Label" parent="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 295.0
+offset_bottom = 125.0
+text = "Restart Anyways"
+label_settings = SubResource("LabelSettings_pltci")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SaveAgainButton" type="Button" parent="save_failed/SaveFailed/ColorRect/SaveFailedLabel"]
+process_mode = 3
+light_mask = 0
+visibility_layer = 4
+layout_mode = 0
+offset_left = 146.0
+offset_top = 168.5
+offset_right = 441.0
+offset_bottom = 290.5
+icon_alignment = 1
+
+[node name="SaveAgain" type="Label" parent="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton"]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 294.0
+offset_bottom = 125.0
+text = "Attempt Save Again"
+label_settings = SubResource("LabelSettings_pmlq7")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="end_game_score" type="Node2D" parent="save_failed/SaveFailed/ColorRect"]
+
+[node name="score" type="Label" parent="save_failed/SaveFailed/ColorRect/end_game_score"]
+offset_left = 852.0
+offset_top = 410.0
+offset_right = 1005.0
+offset_bottom = 490.0
+text = "Score:"
+label_settings = SubResource("LabelSettings_kswcu")
+
+[node name="points" type="Label" parent="save_failed/SaveFailed/ColorRect/end_game_score"]
+offset_left = 1025.0
+offset_top = 412.0
+offset_right = 1178.0
+offset_bottom = 492.0
+text = "0"
+label_settings = SubResource("LabelSettings_kswcu")
+
 [connection signal="pressed" from="end_game/GameOver/ColorRect/Label/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
