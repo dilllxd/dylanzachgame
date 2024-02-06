@@ -27,20 +27,9 @@ func on_game_over():
 	$end_game/GameOver/ColorRect/end_game_score/points.text = "%d" % game_points
 	
 func send_points():
-	var data_to_send = {
-	  "username": username,
-	  "gold": game_points
-	}
-
+	var data_to_send = {"username": username, "gold": game_points}
 	var json = JSON.stringify(data_to_send)
-
-	var headers = [
-	  "Authorization: testauthorization",
-	  "Content-Type: application/json"
-	]
-	
-	print(json)
-	
+	var headers = ["Authorization: testauthorization", "Content-Type: application/json"]	
 	$HTTPRequest.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
 
 func _on_restart_button_pressed():
@@ -48,7 +37,6 @@ func _on_restart_button_pressed():
 	send_points()
 	await get_tree().create_timer(1).timeout 
 	get_tree().reload_current_scene()
-
 
 func _on_play_button_pressed():
 	# need to check for username being set, if not set then make display message about setting it

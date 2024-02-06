@@ -27,7 +27,7 @@ func spawn_mob():
 	
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
-	await add_child(new_mob)
+	add_child(new_mob)
 	number_of_mobs += 1
 	#print("A mob has spawned. Remaining mobs:", number_of_mobs)
 
