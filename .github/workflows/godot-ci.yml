@@ -17,6 +17,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
+      - name: ListWhatWeHave
+        run: ls /root/.local/share/godot/templates/
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
@@ -42,6 +44,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
+      - name: ListWhatWeHave
+        run: ls /root/.local/share/godot/templates/
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
@@ -67,6 +71,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
+      - name: ListWhatWeHave
+        run: ls /root/.local/share/godot/templates/
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
