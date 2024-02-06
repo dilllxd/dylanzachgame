@@ -2,11 +2,28 @@ extends Area2D
 
 @onready var player_health = get_node("/root/Game/Player/ProgressBar")
 
+@onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
+
+var mouse_position = Vector2()
+
+var canShoot = true
+#var fireRate = 0.125  # 8 clicks per second (1 / 8)
+
 func _physics_process(_delta):
-	var enemies_in_range = get_overlapping_bodies()
-	if enemies_in_range.size() > 0:
-		var target_enemy = enemies_in_range.front()
-		look_at(target_enemy.global_position)
+	if player_health.value > 0:
+		# Update the mouse position
+		mouse_position = get_global_mouse_position()
+		
+		# Calculate the direction towards the mouse position
+		var direction = mouse_position - global_position
+		
+		# Calculate the angle towards the mouse position
+		var angle = direction.angle()
+		
+		# Set the rotation to the calculated angle
+		rotation = angle
+	else:
+		return
 
 func shoot():
 	const BULLET = preload("res://bullet.tscn")
@@ -15,8 +32,14 @@ func shoot():
 	new_bullet.global_rotation = %ShootingPoint.global_rotation
 	%ShootingPoint.add_child(new_bullet)
 
-func _on_timer_timeout():
-	if get_overlapping_bodies().size() > 0 and player_health.value > 0:
+#func _process(delta):
+	#if not canShoot:
+		#fireRate -= delta
+		#if fireRate <= 0:
+			#canShoot = true
+			#fireRate = 0.125
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canShoot and player_health.value > 0 and in_game_screen.visible:
 		shoot()
-	else:
-		pass
+		#canShoot = false

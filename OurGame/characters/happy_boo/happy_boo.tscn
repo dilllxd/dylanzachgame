@@ -181,7 +181,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Colorizer/SquareBody/SquareFace:position")
+tracks/14/path = NodePath("Colorizer/SquareBody/SquareFaceAlive:position")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -193,7 +193,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Colorizer/SquareBody/SquareFace:rotation")
+tracks/15/path = NodePath("Colorizer/SquareBody/SquareFaceAlive:rotation")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -377,7 +377,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Colorizer/SquareBody/SquareFace:position")
+tracks/14/path = NodePath("Colorizer/SquareBody/SquareFaceAlive:position")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -389,7 +389,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Colorizer/SquareBody/SquareFace:rotation")
+tracks/15/path = NodePath("Colorizer/SquareBody/SquareFaceAlive:rotation")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -645,6 +645,14 @@ scale = Vector2(0.9842, 0.990263)
 texture = ExtResource("6_w3ck4")
 offset = Vector2(0, -23)
 
-[node name="SquareFace" type="Sprite2D" parent="Colorizer/SquareBody"]
+[node name="SquareFaceAlive" type="Sprite2D" parent="Colorizer/SquareBody"]
 position = Vector2(0, -17)
+texture = ExtResource("7_h5h8s")
+
+[node name="SquareFaceDead" type="Sprite2D" parent="Colorizer/SquareBody"]
+visible = false
+position = Vector2(0, -17)
+rotation = 3.14159
+scale = Vector2(1.006, 1)
+skew = 0.000307322
 texture = ExtResource("7_h5h8s")
