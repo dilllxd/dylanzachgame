@@ -16,6 +16,10 @@ var healthmax = 100.0
 var isHealthDepleted = false
 var started = false
 
+var xp_level = 1
+
+var xp_level_scaling = null
+
 func _ready():
 	ui.game_started.connect(_started)
 
@@ -29,6 +33,9 @@ func upgradespeed(level):
 func upgradehealth(level):
 	health_upgrade_level = level
 	checkhealth()
+
+func currentxplevel(level):
+	xp_level = level
 
 func checkhealth():
 	if health_upgrade_level == 0:
@@ -64,10 +71,11 @@ func _physics_process(delta):
 		else:
 			%HappyBoo.play_idle_animation()
 			
-		const DAMAGE_RATE = 15.0
+		const DAMAGE_RATE = 5.0
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 		if overlapping_mobs.size() > 0:
-			health -= DAMAGE_RATE * overlapping_mobs.size() * delta
+			xp_level_scaling = xp_level * 0.75
+			health -= DAMAGE_RATE * overlapping_mobs.size() * delta * xp_level_scaling
 			%ProgressBar.max_value = healthmax
 			%ProgressBar.value = health
 			if health <= 0.0 and not isHealthDepleted:

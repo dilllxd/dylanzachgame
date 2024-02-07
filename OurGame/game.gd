@@ -1,18 +1,20 @@
 extends Node2D
 
 var number_of_mobs = 0
+var number_of_mobs2 = 0
+var maxnumber_of_mobs = 25
+var maxnumber_of_mobs2 = 5
 
 var points = 0
 var xp = 0
 var xp_level = 1
 var mobs_to_next_level = 30
 var mobs_per_level_increase = 10
-var number_of_mobs2 = 0
-
 
 @onready var ui = $UI
 @onready var timer = $Timer
 @onready var ttimer = $TreeTimer
+@onready var player = $Player
 
 signal game_has_started
 
@@ -25,8 +27,33 @@ func _start():
 	ui.update_xp(xp_level)
 	ui.update_ui()
 	update_xp()
+	mob_xp_scaling()
+	mob2_xp_scaling()
+	player.currentxplevel(xp_level)
 	timer.start()
 	ttimer.start()
+
+func mob_xp_scaling():
+	if xp_level >= 3:
+		maxnumber_of_mobs = 30
+	elif xp_level >= 5:
+		maxnumber_of_mobs = 45
+	elif xp_level >= 10:
+		maxnumber_of_mobs = 50
+	else:
+		maxnumber_of_mobs = 25
+		
+
+func mob2_xp_scaling():
+	if xp_level >= 3:
+		maxnumber_of_mobs2 = 7
+	elif xp_level >= 7:
+		maxnumber_of_mobs2 = 12
+	elif xp_level >= 10:
+		maxnumber_of_mobs2 = 15
+	else:
+		maxnumber_of_mobs2 = 5
+
 
 func spawn_mob():
 	const MOB_INSTANCE = preload("res://mob.tscn")
@@ -62,9 +89,9 @@ func _on_tree_timer_timeout():
 	spawn_tree()
 
 func _on_timer_timeout():
-	if number_of_mobs < 25:
+	if number_of_mobs < maxnumber_of_mobs:
 		spawn_mob()
-	elif number_of_mobs2 < 5:
+	elif number_of_mobs2 < maxnumber_of_mobs2:
 		spawn_mob2()
 	else:
 		pass
@@ -76,7 +103,10 @@ func _on_mob_died():
 	ui.update_xp(xp_level)
 	ui.update_ui()
 	update_xp()
-	if number_of_mobs < 25:
+	mob_xp_scaling()
+	mob2_xp_scaling()
+	player.currentxplevel(xp_level)
+	if number_of_mobs < maxnumber_of_mobs:
 		spawn_mob()
 
 func _on_mob_died2():
@@ -86,7 +116,10 @@ func _on_mob_died2():
 	ui.update_xp(xp_level)
 	ui.update_ui()
 	update_xp()
-	if number_of_mobs2 < 5:
+	mob_xp_scaling()
+	mob2_xp_scaling()
+	player.currentxplevel(xp_level)
+	if number_of_mobs2 < maxnumber_of_mobs2:
 		spawn_mob2()
 	
 func update_xp():
@@ -96,7 +129,10 @@ func update_xp():
 		xp_level += 1
 		mobs_to_next_level += mobs_per_level_increase
 		ui.update_xp(xp_level)
+		player.currentxplevel(xp_level)
 		ui.update_ui()
+		mob_xp_scaling()
+		mob2_xp_scaling()
 
 func _on_player_health_depleted():
 	ui.on_game_over()

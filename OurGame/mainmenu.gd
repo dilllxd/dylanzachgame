@@ -180,31 +180,41 @@ func _on_resume_game_from_pause_pressed():
 
 func _on_upgrade_shotgun_pressed():
 	if shotgun_level == 0:
-		if game_points >= shotgun_price:
-			game_points -= shotgun_price
-			shotgun_level_text = "1"
-			shotgun_level = 1
-			gun.upgradeshotgun(shotgun_level)
-			shotgun_price = 200
-			shotgun_price_text = "200"
-			shotgun_upgrade_text = "Upgrade Shotgun"
-			update_ui()
+		if xp_level >= 5:
+			if game_points >= shotgun_price:
+				game_points -= shotgun_price
+				shotgun_level_text = "1"
+				shotgun_level = 1
+				gun.upgradeshotgun(shotgun_level)
+				shotgun_price = 200
+				shotgun_price_text = "200"
+				shotgun_upgrade_text = "Upgrade Shotgun"
+				update_ui()
+			else:
+				shotgun_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				shotgun_upgrade_text = "Upgrade Shotgun"
 		else:
-			shotgun_upgrade_text = "You do not have enough points!"
+			shotgun_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			shotgun_upgrade_text = "Upgrade Shotgun"
 	elif shotgun_level == 1:
-		if game_points >= shotgun_price:
-			game_points -= shotgun_price
-			shotgun_level_text = "Max (2)"
-			shotgun_level = 2
-			gun.upgradeshotgun(shotgun_level)
-			shotgun_price_text = "None"
-			shotgun_price = 0
-			shotgun_upgrade_text = "You are at max level!"
-			update_ui()
+		if xp_level >= 15:
+			if game_points >= shotgun_price:
+				game_points -= shotgun_price
+				shotgun_level_text = "Max (2)"
+				shotgun_level = 2
+				gun.upgradeshotgun(shotgun_level)
+				shotgun_price_text = "None"
+				shotgun_price = 0
+				shotgun_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				shotgun_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				shotgun_upgrade_text = "Upgrade Shotgun"
 		else:
-			shotgun_upgrade_text = "You do not have enough points!"
+			shotgun_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			shotgun_upgrade_text = "Upgrade Shotgun"
 	else:
@@ -214,45 +224,60 @@ func _on_upgrade_shotgun_pressed():
 
 func _on_upgrade_speed_pressed():
 	if speed_boost_level == 0:
-		if game_points >= speed_boost_price:
-			game_points -= speed_boost_price
-			speed_boost_level_text = "1"
-			speed_boost_level = 1
-			player.upgradespeed(speed_boost_level)
-			speed_boost_price_text = "100"
-			speed_boost_price = 100
-			speed_boost_upgrade_text = "Upgrade Speed Boost"
-			update_ui()
+		if xp_level >= 10:
+			if game_points >= speed_boost_price:
+				game_points -= speed_boost_price
+				speed_boost_level_text = "1"
+				speed_boost_level = 1
+				player.upgradespeed(speed_boost_level)
+				speed_boost_price_text = "100"
+				speed_boost_price = 100
+				speed_boost_upgrade_text = "Upgrade Speed Boost"
+				update_ui()
+			else:
+				speed_boost_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You do not have enough points!"
+			speed_boost_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	elif speed_boost_level == 1:
-		if game_points >= speed_boost_price:
-			game_points -= speed_boost_price
-			speed_boost_level_text = "2"
-			speed_boost_level = 2
-			player.upgradespeed(speed_boost_level)
-			speed_boost_price_text = "200"
-			speed_boost_price = 200
-			speed_boost_upgrade_text = "Upgrade Speed Boost"
-			update_ui()
+		if xp_level >= 25:
+			if game_points >= speed_boost_price:
+				game_points -= speed_boost_price
+				speed_boost_level_text = "2"
+				speed_boost_level = 2
+				player.upgradespeed(speed_boost_level)
+				speed_boost_price_text = "200"
+				speed_boost_price = 200
+				speed_boost_upgrade_text = "Upgrade Speed Boost"
+				update_ui()
+			else:
+				speed_boost_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You do not have enough points!"
+			speed_boost_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	elif speed_boost_level == 2:
-		if game_points >= speed_boost_price:
-			game_points -= speed_boost_price
-			speed_boost_level_text = "Max (3)"
-			speed_boost_level = 3
-			player.upgradespeed(speed_boost_level)
-			speed_boost_price_text = "None"
-			speed_boost_price = 0
-			speed_boost_upgrade_text = "You are at max level!"
-			update_ui()
+		if xp_level >= 40:
+			if game_points >= speed_boost_price:
+				game_points -= speed_boost_price
+				speed_boost_level_text = "Max (3)"
+				speed_boost_level = 3
+				player.upgradespeed(speed_boost_level)
+				speed_boost_price_text = "None"
+				speed_boost_price = 0
+				speed_boost_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				speed_boost_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You do not have enough points!"
+			speed_boost_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	else:
@@ -260,31 +285,41 @@ func _on_upgrade_speed_pressed():
 
 func _on_upgrade_health_pressed():
 	if health_upgrade_level == 0:
-		if game_points >= health_upgrade_price:
-			game_points -= health_upgrade_price
-			health_upgrade_level_text = "1"
-			health_upgrade_level = 1
-			player.upgradehealth(health_upgrade_level)
-			health_upgrade_price = 200
-			health_upgrade_price_text = "200"
-			health_upgrade_upgrade_text = "Upgrade Health"
-			update_ui()
+		if xp_level >= 10:
+			if game_points >= health_upgrade_price:
+				game_points -= health_upgrade_price
+				health_upgrade_level_text = "1"
+				health_upgrade_level = 1
+				player.upgradehealth(health_upgrade_level)
+				health_upgrade_price = 200
+				health_upgrade_price_text = "200"
+				health_upgrade_upgrade_text = "Upgrade Health"
+				update_ui()
+			else:
+				health_upgrade_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				health_upgrade_upgrade_text = "Upgrade Health"
 		else:
-			health_upgrade_upgrade_text = "You do not have enough points!"
+			health_upgrade_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			health_upgrade_upgrade_text = "Upgrade Health"
 	elif health_upgrade_level == 1:
-		if game_points >= health_upgrade_price:
-			game_points -= health_upgrade_price
-			health_upgrade_level_text = "Max (2)"
-			health_upgrade_level = 2
-			player.upgradehealth(health_upgrade_level)
-			health_upgrade_price_text = "None"
-			health_upgrade_price = 0
-			health_upgrade_upgrade_text = "You are at max level!"
-			update_ui()
+		if xp_level >= 20:
+			if game_points >= health_upgrade_price:
+				game_points -= health_upgrade_price
+				health_upgrade_level_text = "Max (2)"
+				health_upgrade_level = 2
+				player.upgradehealth(health_upgrade_level)
+				health_upgrade_price_text = "None"
+				health_upgrade_price = 0
+				health_upgrade_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				health_upgrade_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				health_upgrade_upgrade_text = "Upgrade Health"
 		else:
-			health_upgrade_upgrade_text = "You do not have enough points!"
+			health_upgrade_upgrade_text = "You are not high enough level!"
 			await get_tree().create_timer(3).timeout
 			health_upgrade_upgrade_text = "Upgrade Health"
 	else:
