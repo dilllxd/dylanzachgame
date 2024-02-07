@@ -13,6 +13,8 @@ var mobs_per_level_increase = 10
 @onready var timer = $Timer
 @onready var ttimer = $TreeTimer
 
+@onready var gun = $Player/Gun
+
 signal game_has_started
 
 func _ready():
@@ -22,6 +24,7 @@ func _start():
 	game_has_started.emit()
 	ui.update_points(points)
 	ui.update_xp(xp_level)
+	gun.xp_level_update(xp_level)
 	ui.update_ui()
 	update_xp()
 	timer.start()
@@ -61,6 +64,7 @@ func _on_mob_died():
 	ui.update_points(points)
 	ui.update_xp(xp_level)
 	ui.update_ui()
+	gun.xp_level_update(xp_level)
 	update_xp()
 	if number_of_mobs < 25:
 		spawn_mob()
@@ -72,6 +76,7 @@ func update_xp():
 		xp_level += 1
 		mobs_to_next_level += mobs_per_level_increase
 		ui.update_xp(xp_level)
+		gun.xp_level_update(xp_level)
 		ui.update_ui()
 
 func _on_player_health_depleted():
