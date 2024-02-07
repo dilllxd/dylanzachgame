@@ -44,6 +44,10 @@ func update_ui():
 	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/UpgradePriceLabel.text = "Upgrade Price: %d" % shotgun_price
 	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: %d" % speed_boost_level
 	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: %d" % speed_boost_price
+	if speed_boost_level == 3:
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: Max (3)"
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: None"
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You are at max level!"
 	
 func on_game_over():
 	in_game_screen.visible = false
@@ -91,8 +95,6 @@ func _on_quit_button_pressed():
 func _on_settings_button_pressed():
 	main_menu.visible = false
 	settings.visible = true
-	if speed_boost_level == 3:
-		$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You are at max level!"
 
 func _on_back_button_pressed():
 	settings.visible = false
@@ -162,6 +164,7 @@ func _on_resume_game_from_pause_pressed():
 func _on_upgrade_shotgun_pressed():
 	if shotgun_level == 0:
 		if game_points >= shotgun_price:
+			game_points = game_points - shotgun_price
 			shotgun_level = 1
 			gun.upgradeshotgun(shotgun_level)
 			shotgun_price = 100
@@ -176,6 +179,7 @@ func _on_upgrade_shotgun_pressed():
 func _on_upgrade_speed_pressed():
 	if speed_boost_level == 0:
 		if game_points >= speed_boost_price:
+			game_points = game_points - speed_boost_price
 			speed_boost_level = 1
 			player.upgradespeed(speed_boost_level)
 			speed_boost_price = 100
@@ -186,6 +190,7 @@ func _on_upgrade_speed_pressed():
 			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
 	elif speed_boost_level == 1:
 		if game_points >= speed_boost_price:
+			game_points = game_points - speed_boost_price
 			speed_boost_level = 2
 			player.upgradespeed(speed_boost_level)
 			speed_boost_price = 100
@@ -196,16 +201,14 @@ func _on_upgrade_speed_pressed():
 			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
 	elif speed_boost_level == 2:
 		if game_points >= speed_boost_price:
+			game_points = game_points - speed_boost_price
 			speed_boost_level = 3
 			player.upgradespeed(speed_boost_level)
-			speed_boost_price = 150
+			speed_boost_price = 0
 			update_ui()
 		else:
 			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You do not have enough points!"
 			await get_tree().create_timer(3).timeout
 			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
-	elif speed_boost_level == 3:
-		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: Max (3)" % speed_boost_level
-		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: None" % speed_boost_price
 	else:
 		pass
