@@ -170,7 +170,6 @@ func _process(delta):
 				escape_key_pressed = true
 			last_toggle_time = 0
 
-
 func _on_quit_game_from_pause_pressed():
 	get_tree().quit()
 
@@ -220,8 +219,6 @@ func _on_upgrade_shotgun_pressed():
 	else:
 		pass
 			
-
-
 func _on_upgrade_speed_pressed():
 	if speed_boost_level == 0:
 		if xp_level >= 10:

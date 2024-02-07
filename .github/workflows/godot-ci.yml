@@ -1,4 +1,4 @@
-name: "godot-ci export"
+name: godot-ci export
 on: push
 
 env:
@@ -35,6 +35,27 @@ jobs:
         with:
           name: windows
           path: build/windows
+      # Create a release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.GODOT_VERSION }}-windows
+          release_name: Release ${{ env.GODOT_VERSION }} (Windows)
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/windows/$EXPORT_NAME.exe
+          asset_name: ${{ env.EXPORT_NAME }}.exe
+          asset_content_type: application/octet-stream
 
   export-linux:
     name: Linux Export
@@ -64,6 +85,26 @@ jobs:
         with:
           name: linux
           path: build/linux
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.GODOT_VERSION }}-linux
+          release_name: Release ${{ env.GODOT_VERSION }} (Linux)
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/linux/$EXPORT_NAME.x86_64
+          asset_name: ${{ env.EXPORT_NAME }}.x86_64
+          asset_content_type: application/octet-stream
 
   export-web:
     name: Web Export
@@ -101,28 +142,31 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build/web # The folder the action should deploy.
-
-  # export-mac:
-  #   name: Mac Export
-  #   runs-on: ubuntu-20.04
-  #   container:
-  #     image: barichello/godot-ci:4.2.1
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
-  #     - name: Setup
-  #       run: |
-  #         mkdir -v -p ~/.local/share/godot/templates
-  #         mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
-  #     - name: Mac Build
-  #       run: |
-  #         mkdir -v -p build/mac
-  #         cd $PROJECT_PATH
-  #         godot --headless --verbose --export-release "Mac OSX" ../build/mac/$EXPORT_NAME.zip
-  #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v1
-  #       with:
-  #         name: mac
-  #         path: build/mac
+      - name: Publish to itch.io
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.2
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: web
+          ITCH_GAME: testgame
+          ITCH_USER: Dilll
+          PACKAGE: build/web
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.GODOT_VERSION }}-web
+          release_name: Release ${{ env.GODOT_VERSION }} (Web)
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/web/$EXPORT_NAME.x86_64
+          asset_name: ${{ env.EXPORT_NAME }}.x86_64
+          asset_content_type: application/octet-stream
