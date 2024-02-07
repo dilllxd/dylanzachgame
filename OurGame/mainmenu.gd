@@ -6,6 +6,10 @@ var game_points = 0
 
 var xp_level = 0
 
+var shotgun_level = 0
+
+var shotgun_price = 10
+
 var username = null
 
 @onready var end_of_game_screen = $end_game/GameOver
@@ -15,6 +19,7 @@ var username = null
 @onready var save_failed = $save_failed/SaveFailed
 @onready var upgrade_screen = $in_game/UpgradeUI
 @onready var pause_screen = $in_game/PauseUI
+@onready var gun = get_node("/root/Game/Player/Gun")
 
 func _ready():
 	%HappyBoo.play_idle_animation()
@@ -28,14 +33,18 @@ func update_xp(level):
 
 func update_ui():
 	in_game_screen.visible = true
-	$in_game/GameUI/in_game_score/points.text = "%d" % game_points
-	$in_game/GameUI/in_game_xp/points.text = "%d" % xp_level
+	$in_game/GameUI/in_game_score/score.text = "Points: %d" % game_points
+	$in_game/GameUI/in_game_xp/score.text = "XP Level: %d" % xp_level
+	$in_game/UpgradeUI/ColorRect/Points.text = "Points: %d" % game_points
+	$in_game/UpgradeUI/ColorRect/XP.text = "XP Level: %d" % xp_level
+	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/LevelLabel.text = "Current Level: %d" % shotgun_level
+	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/UpgradePriceLabel.text = "Upgrade Price: %d" % shotgun_price
 	
 func on_game_over():
 	in_game_screen.visible = false
 	end_of_game_screen.visible = true
-	$end_game/GameOver/ColorRect/end_game_score/points.text = "%d" % game_points
-	$save_failed/SaveFailed/ColorRect/end_game_score/points.text = "%d" % game_points
+	$end_game/GameOver/ColorRect/end_game_score/score.text = "Points: %d" % game_points
+	$save_failed/SaveFailed/ColorRect/end_game_score/score.text = "Points: %d" % game_points
 	
 func send_points():
 	var http_request = HTTPRequest.new()
@@ -139,7 +148,19 @@ func _process(delta):
 func _on_quit_game_from_pause_pressed():
 	get_tree().quit()
 
-
 func _on_resume_game_from_pause_pressed():
 	pause_screen.visible = false
 	get_tree().paused = false
+
+func _on_upgrade_shotgun_pressed():
+	if shotgun_level == 0:
+		if game_points >= shotgun_price:
+			shotgun_level = 1
+			gun.upgradeshotgun(shotgun_level)
+			shotgun_price = 100
+			update_ui()
+		else:
+			$in_game/UpgradeUI/ColorRect/UpgradeShotgun.text = "You do not have enough points!"
+			await get_tree().create_timer(3).timeout
+			$in_game/UpgradeUI/ColorRect/UpgradeShotgun.text = "Upgrade Shotgun"
+			

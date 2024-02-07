@@ -6,7 +6,7 @@ var xp_level = 1
 
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
 
-var shotgun = false
+var shotgun_level = 0
 
 var mouse_position = Vector2()
 
@@ -29,16 +29,17 @@ func _physics_process(_delta):
 	else:
 		return
 
-func xp_level_update(level):
-	xp_level = level
-	if xp_level == 3:
-		shotgun = true
-	else:
-		return
+func upgradeshotgun(level):
+	shotgun_level = level
 
 func shoot():
 	const BULLET = preload("res://bullet.tscn")
-	if shotgun == true:
+	if shotgun_level == 0:
+		var new_bullet = BULLET.instantiate()
+		new_bullet.global_position = %ShootingPoint.global_position
+		new_bullet.global_rotation = %ShootingPoint.global_rotation 
+		%ShootingPoint.add_child(new_bullet)
+	elif shotgun_level == 1:
 		var new_bullet = BULLET.instantiate()
 		new_bullet.global_position = %ShootingPoint.global_position
 		new_bullet.global_rotation = %ShootingPoint.global_rotation 
@@ -54,10 +55,8 @@ func shoot():
 		new_bullet3.global_rotation = %ShootingPoint.global_rotation +.2
 		%ShootingPoint.add_child(new_bullet3)
 	else:
-		var new_bullet = BULLET.instantiate()
-		new_bullet.global_position = %ShootingPoint.global_position
-		new_bullet.global_rotation = %ShootingPoint.global_rotation 
-		%ShootingPoint.add_child(new_bullet)
+		pass
+
 
 #func _process(delta):
 	#if not canShoot:
