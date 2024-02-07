@@ -4,6 +4,8 @@ class_name UI
 signal game_started
 var game_points = 0
 
+var xp_level = 0
+
 var username = null
 
 @onready var end_of_game_screen = $end_game/GameOver
@@ -11,6 +13,8 @@ var username = null
 @onready var main_menu = $main_menu
 @onready var settings = $settings
 @onready var save_failed = $save_failed/SaveFailed
+@onready var upgrade_screen = $in_game/UpgradeUI
+@onready var pause_screen = $in_game/PauseUI
 
 func _ready():
 	%HappyBoo.play_idle_animation()
@@ -19,9 +23,13 @@ func _ready():
 func update_points(points):
 	game_points = points
 	
+func update_xp(level):
+	xp_level = level
+
 func update_ui():
 	in_game_screen.visible = true
 	$in_game/GameUI/in_game_score/points.text = "%d" % game_points
+	$in_game/GameUI/in_game_xp/points.text = "%d" % xp_level
 	
 func on_game_over():
 	in_game_screen.visible = false
@@ -87,3 +95,21 @@ func _on_restart_anyway_button_pressed():
 
 func _on_save_again_button_pressed():
 	send_points()
+
+#func _input(event):
+	#if event is InputEventKey and event.button_index == KEY_U and in_game_screen.visible:
+		#if upgrade_screen.visible == false:
+			#upgrade_screen.visible = true
+		#elif upgrade_screen.visible == true:
+			#upgrade_screen.visible = false
+	#elif event is InputEventKey and event.button_index == KEY_ESCAPE and in_game_screen.visible:
+		#if upgrade_screen.visible == true:
+			#upgrade_screen.visible = false
+		#elif pause_screen.visible == true:
+			#pause_screen.visible = false
+		#elif pause_screen.visible == false:
+			#pause_screen.visible == true
+		#else:
+			#pass
+	#else:
+		#pass
