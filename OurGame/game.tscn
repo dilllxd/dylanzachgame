@@ -109,7 +109,7 @@ label_settings = SubResource("LabelSettings_3vp3d")
 
 [node name="TreeTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.4
+wait_time = 1.045
 
 [node name="UI" parent="." instance=ExtResource("4_q5fxp")]
 

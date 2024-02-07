@@ -6,6 +6,8 @@ extends CharacterBody2D
 
 signal health_depleted
 
+var speed_boost_level = 0
+
 var health = 100.0
 var isHealthDepleted = false
 var started = false
@@ -15,21 +17,29 @@ func _ready():
 
 func _started():
 	started = true
+	
 
 func _physics_process(delta):
 	if not started and in_game_screen.visible == false:
 		return
 	elif started == true and in_game_screen.visible == true:
 		var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		velocity = direction * 600
+		if speed_boost_level == 0:
+			velocity = direction * 600
+		elif speed_boost_level == 1:
+			velocity = direction *800
+		elif speed_boost_level == 2:
+			velocity = direction * 900
+		else:
+			pass
 		move_and_slide()
-
 		if velocity.length() > 0.0:
 			%HappyBoo.play_walk_animation()
 		else:
 			%HappyBoo.play_idle_animation()
-
-		const DAMAGE_RATE = 5.0
+			
+			
+		const DAMAGE_RATE = 15.0
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 		if overlapping_mobs.size() > 0:
 			health -= DAMAGE_RATE * overlapping_mobs.size() * delta
@@ -39,3 +49,4 @@ func _physics_process(delta):
 				health_depleted.emit()
 				%HappyBoo/Colorizer/SquareBody/SquareFaceAlive.visible = false
 				%HappyBoo/Colorizer/SquareBody/SquareFaceDead.visible = true
+				
