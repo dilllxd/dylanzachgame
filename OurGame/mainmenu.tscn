@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=35 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -319,7 +319,6 @@ offset_right = 246.0
 offset_bottom = 203.0
 text = "Health: 0"
 label_settings = SubResource("LabelSettings_gqoqt")
-
 
 [node name="UpgradeUI" type="CanvasLayer" parent="in_game"]
 visible = false

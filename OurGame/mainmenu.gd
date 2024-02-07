@@ -183,6 +183,7 @@ func _on_upgrade_shotgun_pressed():
 		if game_points >= shotgun_price:
 			game_points -= shotgun_price
 			shotgun_level_text = "1"
+			shotgun_level = 1
 			gun.upgradeshotgun(shotgun_level)
 			shotgun_price = 200
 			shotgun_price_text = "200"
@@ -216,6 +217,7 @@ func _on_upgrade_speed_pressed():
 		if game_points >= speed_boost_price:
 			game_points -= speed_boost_price
 			speed_boost_level_text = "1"
+			speed_boost_level = 1
 			player.upgradespeed(speed_boost_level)
 			speed_boost_price_text = "100"
 			speed_boost_price = 100
@@ -229,6 +231,7 @@ func _on_upgrade_speed_pressed():
 		if game_points >= speed_boost_price:
 			game_points -= speed_boost_price
 			speed_boost_level_text = "2"
+			speed_boost_level = 2
 			player.upgradespeed(speed_boost_level)
 			speed_boost_price_text = "200"
 			speed_boost_price = 200
@@ -242,7 +245,9 @@ func _on_upgrade_speed_pressed():
 		if game_points >= speed_boost_price:
 			game_points -= speed_boost_price
 			speed_boost_level_text = "Max (3)"
+			speed_boost_level = 3
 			player.upgradespeed(speed_boost_level)
+			speed_boost_price_text = "None"
 			speed_boost_price = 0
 			speed_boost_upgrade_text = "You are at max level!"
 			update_ui()
