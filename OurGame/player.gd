@@ -8,7 +8,10 @@ signal health_depleted
 
 var speed_boost_level = 0
 
+var health_level = 1
+
 var health = 100.0
+
 var isHealthDepleted = false
 var started = false
 
@@ -41,13 +44,21 @@ func _physics_process(delta):
 			%HappyBoo.play_walk_animation()
 		else:
 			%HappyBoo.play_idle_animation()
-			
+		if health_level == 0:
+			health = 100.0
+		elif health_level == 1:
+			health = 200.0
+		elif health_level == 2:
+			health = 300.0
+		else:
+			health = 100.0
 			
 		const DAMAGE_RATE = 15.0
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 		if overlapping_mobs.size() > 0:
 			health -= DAMAGE_RATE * overlapping_mobs.size() * delta
 			%ProgressBar.value = health
+			print(health)
 			if health <= 0.0 and not isHealthDepleted:
 				isHealthDepleted = true
 				health_depleted.emit()

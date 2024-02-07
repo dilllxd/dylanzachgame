@@ -583,7 +583,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
