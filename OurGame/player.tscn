@@ -85,4 +85,4 @@ offset_bottom = -120.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xq1g3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_62ru4")
 value = 100.0
-show_percentage = false
+rounded = true
