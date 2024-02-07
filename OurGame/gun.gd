@@ -2,7 +2,11 @@ extends Area2D
 
 @onready var player_health = get_node("/root/Game/Player/ProgressBar")
 
+@onready var game_points = get_node("/root/Game/UI/in_game/GameUI/in_game_score/points")
+
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
+
+var shotgun = false
 
 var mouse_position = Vector2()
 
@@ -27,10 +31,27 @@ func _physics_process(_delta):
 
 func shoot():
 	const BULLET = preload("res://bullet.tscn")
-	var new_bullet = BULLET.instantiate()
-	new_bullet.global_position = %ShootingPoint.global_position
-	new_bullet.global_rotation = %ShootingPoint.global_rotation
-	%ShootingPoint.add_child(new_bullet)
+	var shotgun = false
+	if shotgun == true:
+		var new_bullet = BULLET.instantiate()
+		new_bullet.global_position = %ShootingPoint.global_position
+		new_bullet.global_rotation = %ShootingPoint.global_rotation 
+		%ShootingPoint.add_child(new_bullet)
+		
+		var new_bullet2 = BULLET.instantiate()
+		new_bullet2.global_position = %ShootingPoint.global_position
+		new_bullet2.global_rotation = %ShootingPoint.global_rotation -1
+		%ShootingPoint.add_child(new_bullet2)
+		
+		var new_bullet3 = BULLET.instantiate()
+		new_bullet3.global_position = %ShootingPoint.global_position
+		new_bullet3.global_rotation = %ShootingPoint.global_rotation +1
+		%ShootingPoint.add_child(new_bullet3)
+	else:
+		var new_bullet = BULLET.instantiate()
+		new_bullet.global_position = %ShootingPoint.global_position
+		new_bullet.global_rotation = %ShootingPoint.global_rotation 
+		%ShootingPoint.add_child(new_bullet)
 
 #func _process(delta):
 	#if not canShoot:
