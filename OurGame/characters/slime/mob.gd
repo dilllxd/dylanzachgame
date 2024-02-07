@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var health = 6
+var health = 3
 
 @onready var player = get_node("/root/Game/Player")
 
@@ -8,7 +8,6 @@ signal mob_died
 
 func _ready():
 	%Slime.play_walk()
-	%Slime2.play_walk()
 
 func _physics_process(_delta):
 	var direction = global_position.direction_to(player.global_position)
@@ -18,7 +17,6 @@ func _physics_process(_delta):
 func take_damage():
 	health -= 1
 	%Slime.play_hurt()
-	%Slime2.play_hurt()
 	
 	if health == 0:
 		queue_free()

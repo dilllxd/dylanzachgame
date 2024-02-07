@@ -4,10 +4,9 @@ var health = 6
 
 @onready var player = get_node("/root/Game/Player")
 
-signal mob_died
+signal mob_died2
 
 func _ready():
-	%Slime.play_walk()
 	%Slime2.play_walk()
 
 func _physics_process(_delta):
@@ -17,7 +16,6 @@ func _physics_process(_delta):
 
 func take_damage():
 	health -= 1
-	%Slime.play_hurt()
 	%Slime2.play_hurt()
 	
 	if health == 0:
@@ -26,4 +24,4 @@ func take_damage():
 		var smoke = SMOKE_SCENE.instantiate()
 		get_parent().add_child(smoke)
 		smoke.global_position = global_position
-		mob_died.emit()
+		mob_died2.emit()

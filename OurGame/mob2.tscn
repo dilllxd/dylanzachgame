@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://duvoroin21nhk"]
+
+[ext_resource type="Script" path="res://mob2.gd" id="1_e8t1p"]
+[ext_resource type="PackedScene" uid="uid://0awfe5fbtcjk" path="res://characters/slime2.tscn" id="2_xh27o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nn7ee"]
+radius = 48.0
+height = 104.0
+
+[node name="Mob2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_e8t1p")
+
+[node name="Slime2" parent="." instance=ExtResource("2_xh27o")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -28)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nn7ee")

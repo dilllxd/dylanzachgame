@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=28 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="3_a10ml"]
-[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime/slime.tscn" id="4_5dw0s"]
+[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime.tscn" id="4_hvi3l"]
+[ext_resource type="Texture2D" uid="uid://caqfk2xng5v5u" path="res://trees/pine_tree.png" id="5_d1dsl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5tkl5"]
 font_size = 62
@@ -248,11 +249,21 @@ top_level = true
 position = Vector2(339, 563)
 scale = Vector2(2.51033, 2.51033)
 
-[node name="Slime" parent="main_menu/ColorRect" instance=ExtResource("4_5dw0s")]
+[node name="Slime" parent="main_menu/ColorRect" instance=ExtResource("4_hvi3l")]
 unique_name_in_owner = true
 top_level = true
 position = Vector2(1552, 547)
 scale = Vector2(2.37277, 2.37277)
+
+[node name="PineTree" type="Sprite2D" parent="main_menu/ColorRect"]
+position = Vector2(567, 235)
+scale = Vector2(1.70131, 1.70131)
+texture = ExtResource("5_d1dsl")
+
+[node name="PineTree2" type="Sprite2D" parent="main_menu/ColorRect"]
+position = Vector2(1629, 808)
+scale = Vector2(2.51554, 2.51554)
+texture = ExtResource("5_d1dsl")
 
 [node name="in_game" type="Node2D" parent="."]
 
@@ -583,7 +594,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]

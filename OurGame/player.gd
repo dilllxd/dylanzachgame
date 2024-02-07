@@ -8,7 +8,7 @@ signal health_depleted
 
 var speed_boost_level = 0
 
-var health_level = 0
+var health_level = 2
 
 var health = 100.0
 var healthmax = 100.0
