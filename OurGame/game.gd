@@ -71,7 +71,7 @@ func _on_timer_timeout():
 
 func _on_mob_died():
 	number_of_mobs -= 1
-	points += 1
+	points = 1
 	ui.update_points(points)
 	ui.update_xp(xp_level)
 	ui.update_ui()
@@ -81,7 +81,7 @@ func _on_mob_died():
 
 func _on_mob_died2():
 	number_of_mobs2 -= 1
-	points += 3
+	points = 3
 	ui.update_points(points)
 	ui.update_xp(xp_level)
 	ui.update_ui()

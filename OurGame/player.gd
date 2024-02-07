@@ -8,7 +8,7 @@ signal health_depleted
 
 var speed_boost_level = 0
 
-var health_level = 2
+var health_upgrade_level = 0
 
 var health = 100.0
 var healthmax = 100.0
@@ -26,14 +26,18 @@ func _started():
 func upgradespeed(level):
 	speed_boost_level = level
 
+func upgradehealth(level):
+	health_upgrade_level = level
+	checkhealth()
+
 func checkhealth():
-	if health_level == 0:
+	if health_upgrade_level == 0:
 		health = 100.0
 		healthmax = 100.0
-	elif health_level == 1:
+	elif health_upgrade_level == 1:
 		health = 200.0
 		healthmax = 200.0
-	elif health_level == 2:
+	elif health_upgrade_level == 2:
 		health = 300.0
 		healthmax = 300.0
 	else:
