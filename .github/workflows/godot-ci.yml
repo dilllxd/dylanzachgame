@@ -37,15 +37,15 @@ jobs:
           name: windows
           path: build/windows
       # Create a release
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build/windows/*"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        draft: false
-        prerelease: steps.check-version.outputs.prerelease == 'true'
-        skipIfReleaseExists: true
-        tag: v${{ env.GAME_VERSION }}-windows
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/windows/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: steps.check-version.outputs.prerelease == 'true'
+          skipIfReleaseExists: true
+          tag: v${{ env.GAME_VERSION }}-windows
 
   export-linux:
     name: Linux Export
@@ -75,15 +75,15 @@ jobs:
         with:
           name: linux
           path: build/linux
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build/linux/*"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        draft: false
-        prerelease: steps.check-version.outputs.prerelease == 'true'
-        skipIfReleaseExists: true
-        tag: v${{ env.GAME_VERSION }}-linux
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/linux/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: steps.check-version.outputs.prerelease == 'true'
+          skipIfReleaseExists: true
+          tag: v${{ env.GAME_VERSION }}-linux
 
   export-web:
     name: Web Export
