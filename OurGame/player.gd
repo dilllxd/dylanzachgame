@@ -18,6 +18,8 @@ func _ready():
 func _started():
 	started = true
 	
+func upgradespeed(level):
+	speed_boost_level = level
 
 func _physics_process(delta):
 	if not started and in_game_screen.visible == false:
@@ -27,11 +29,13 @@ func _physics_process(delta):
 		if speed_boost_level == 0:
 			velocity = direction * 600
 		elif speed_boost_level == 1:
-			velocity = direction *800
+			velocity = direction * 800
 		elif speed_boost_level == 2:
 			velocity = direction * 900
+		elif speed_boost_level == 3:
+			velocity = direction * 1000
 		else:
-			pass
+			velocity = direction * 600
 		move_and_slide()
 		if velocity.length() > 0.0:
 			%HappyBoo.play_walk_animation()

@@ -7,8 +7,10 @@ var game_points = 0
 var xp_level = 0
 
 var shotgun_level = 0
-
 var shotgun_price = 10
+
+var speed_boost_level = 0
+var speed_boost_price = 50
 
 var username = null
 
@@ -20,6 +22,7 @@ var username = null
 @onready var upgrade_screen = $in_game/UpgradeUI
 @onready var pause_screen = $in_game/PauseUI
 @onready var gun = get_node("/root/Game/Player/Gun")
+@onready var player = get_node("/root/Game/Player")
 
 func _ready():
 	%HappyBoo.play_idle_animation()
@@ -39,6 +42,8 @@ func update_ui():
 	$in_game/UpgradeUI/ColorRect/XP.text = "XP Level: %d" % xp_level
 	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/LevelLabel.text = "Current Level: %d" % shotgun_level
 	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/UpgradePriceLabel.text = "Upgrade Price: %d" % shotgun_price
+	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: %d" % speed_boost_level
+	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: %d" % speed_boost_price
 	
 func on_game_over():
 	in_game_screen.visible = false
@@ -86,6 +91,8 @@ func _on_quit_button_pressed():
 func _on_settings_button_pressed():
 	main_menu.visible = false
 	settings.visible = true
+	if speed_boost_level == 3:
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You are at max level!"
 
 func _on_back_button_pressed():
 	settings.visible = false
@@ -164,3 +171,41 @@ func _on_upgrade_shotgun_pressed():
 			await get_tree().create_timer(3).timeout
 			$in_game/UpgradeUI/ColorRect/UpgradeShotgun.text = "Upgrade Shotgun"
 			
+
+
+func _on_upgrade_speed_pressed():
+	if speed_boost_level == 0:
+		if game_points >= speed_boost_price:
+			speed_boost_level = 1
+			player.upgradespeed(speed_boost_level)
+			speed_boost_price = 100
+			update_ui()
+		else:
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You do not have enough points!"
+			await get_tree().create_timer(3).timeout
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
+	elif speed_boost_level == 1:
+		if game_points >= speed_boost_price:
+			speed_boost_level = 2
+			player.upgradespeed(speed_boost_level)
+			speed_boost_price = 100
+			update_ui()
+		else:
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You do not have enough points!"
+			await get_tree().create_timer(3).timeout
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
+	elif speed_boost_level == 2:
+		if game_points >= speed_boost_price:
+			speed_boost_level = 3
+			player.upgradespeed(speed_boost_level)
+			speed_boost_price = 150
+			update_ui()
+		else:
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "You do not have enough points!"
+			await get_tree().create_timer(3).timeout
+			$in_game/UpgradeUI/ColorRect/UpgradeSpeed.text = "Upgrade Speed Boost"
+	elif speed_boost_level == 3:
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: Max (3)" % speed_boost_level
+		$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: None" % speed_boost_price
+	else:
+		pass

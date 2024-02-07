@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=27 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -52,6 +52,15 @@ font_size = 24
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_3in7f"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejwar"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_dclab"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_6n70f"]
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_rs4ii"]
@@ -339,6 +348,47 @@ label_settings = SubResource("LabelSettings_3in7f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="UpgradeSpeed" type="Button" parent="in_game/UpgradeUI/ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 576.0
+offset_right = 384.0
+offset_bottom = 704.0
+theme_override_font_sizes/font_size = 30
+text = "Upgrade Speed Boost"
+
+[node name="LevelLabel" type="Label" parent="in_game/UpgradeUI/ColorRect/UpgradeSpeed"]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 576.0
+offset_bottom = 64.0
+text = "Current Level: 0"
+label_settings = SubResource("LabelSettings_ejwar")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InformationLabel" type="Label" parent="in_game/UpgradeUI/ColorRect/UpgradeSpeed"]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 576.0
+offset_bottom = 256.0
+text = "Details on the upgrade, change based on current level upgrade."
+label_settings = SubResource("LabelSettings_dclab")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="UpgradePriceLabel" type="Label" parent="in_game/UpgradeUI/ColorRect/UpgradeSpeed"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 576.0
+offset_bottom = 128.0
+text = "Upgrade Price: 0"
+label_settings = SubResource("LabelSettings_6n70f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PauseUI" type="CanvasLayer" parent="in_game"]
 visible = false
 
@@ -528,6 +578,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="main_menu/ColorRect/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="in_game/UpgradeUI/ColorRect/UpgradeShotgun" to="." method="_on_upgrade_shotgun_pressed"]
+[connection signal="pressed" from="in_game/UpgradeUI/ColorRect/UpgradeSpeed" to="." method="_on_upgrade_speed_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/ResumeGameFromPause" to="." method="_on_resume_game_from_pause_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
