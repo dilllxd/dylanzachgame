@@ -82,7 +82,7 @@ func send_points():
 	
 	http_request.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
 
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(_result, response_code, _headers, _body):
 	if response_code == 200:
 		get_tree().reload_current_scene()
 	else:
