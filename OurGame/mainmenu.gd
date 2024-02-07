@@ -96,20 +96,50 @@ func _on_restart_anyway_button_pressed():
 func _on_save_again_button_pressed():
 	send_points()
 
-#func _input(event):
-	#if event is InputEventKey and event.button_index == KEY_U and in_game_screen.visible:
-		#if upgrade_screen.visible == false:
-			#upgrade_screen.visible = true
-		#elif upgrade_screen.visible == true:
-			#upgrade_screen.visible = false
-	#elif event is InputEventKey and event.button_index == KEY_ESCAPE and in_game_screen.visible:
-		#if upgrade_screen.visible == true:
-			#upgrade_screen.visible = false
-		#elif pause_screen.visible == true:
-			#pause_screen.visible = false
-		#elif pause_screen.visible == false:
-			#pause_screen.visible == true
-		#else:
-			#pass
-	#else:
-		#pass
+var upgrade_key_pressed = false
+var escape_key_pressed = false
+var last_toggle_time = 0
+var toggle_delay = 0.2 # Adjust this value as needed
+
+func _process(delta):
+	last_toggle_time += delta
+
+	if Input.is_action_pressed("ui_upgrade") and in_game_screen.visible:
+		if not pause_screen.visible:  # Check if pause menu is not visible
+			if last_toggle_time >= toggle_delay:
+				if upgrade_screen.visible:
+					upgrade_screen.visible = false
+					get_tree().paused = false
+					print("upgrade set to invisible")
+				else:
+					upgrade_screen.visible = true
+					get_tree().paused = true
+					print("upgrade set to visible")
+				last_toggle_time = 0
+
+	if Input.is_action_pressed("ui_pause") and in_game_screen.visible:
+		if last_toggle_time >= toggle_delay:
+			if upgrade_screen.visible:
+				upgrade_screen.visible = false
+				get_tree().paused = false
+				print("upgrade set to invisible")
+			elif pause_screen.visible:
+				pause_screen.visible = false
+				get_tree().paused = false
+				print("pause set to invisible")
+				escape_key_pressed = false
+			else:
+				pause_screen.visible = true
+				get_tree().paused = true
+				print("pause set to visible")
+				escape_key_pressed = true
+			last_toggle_time = 0
+
+
+func _on_quit_game_from_pause_pressed():
+	get_tree().quit()
+
+
+func _on_resume_game_from_pause_pressed():
+	pause_screen.visible = false
+	get_tree().paused = false

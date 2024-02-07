@@ -63,6 +63,7 @@ font_size = 32
 font_size = 32
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_nk1tt")
 
 [node name="end_game" type="Node2D" parent="."]
@@ -307,6 +308,7 @@ grow_vertical = 2
 color = Color(0.0980392, 0.0980392, 0.0980392, 0.701961)
 
 [node name="ResumeGameFromPause" type="Button" parent="in_game/PauseUI/ColorRect"]
+process_mode = 3
 layout_mode = 0
 offset_left = 50.0
 offset_top = 38.0
@@ -316,6 +318,7 @@ theme_override_font_sizes/font_size = 54
 text = "Resume Game"
 
 [node name="QuitGameFromPause" type="Button" parent="in_game/PauseUI/ColorRect"]
+process_mode = 3
 layout_mode = 0
 offset_left = 50.0
 offset_top = 214.0
@@ -489,9 +492,11 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="main_menu/ColorRect/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="main_menu/ColorRect/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="in_game/PauseUI/ColorRect/ResumeGameFromPause" to="." method="_on_resume_game_from_pause_pressed"]
+[connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
