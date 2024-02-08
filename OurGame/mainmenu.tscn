@@ -161,7 +161,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 
 [node name="ColorRect" type="ColorRect" parent="main_menu"]
 offset_right = 1920.0
-offset_bottom = 1078.0
+offset_bottom = 1080.0
 
 [node name="QuitButton" type="Button" parent="main_menu/ColorRect"]
 layout_mode = 1
@@ -701,7 +701,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
