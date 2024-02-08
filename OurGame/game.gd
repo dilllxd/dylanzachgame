@@ -11,6 +11,12 @@ var xp_level = 1
 var mobs_to_next_level = 30
 var mobs_per_level_increase = 10
 
+const SPAWN_UPDATE_INTERVAL = 0
+var spawn_update_timer = 0.0
+var occupied_areas = {}
+var spawn_points = []
+
+
 @onready var ui = $UI
 @onready var timer = $Timer
 @onready var ttimer = $TreeTimer
@@ -18,9 +24,65 @@ var mobs_per_level_increase = 10
 
 signal game_has_started
 
+func _process(delta):
+	spawn_update_timer += delta
+	if spawn_update_timer >= SPAWN_UPDATE_INTERVAL:
+		update_spawn_points()
+		spawn_update_timer = 0.0
+		spawn_tree()
+		
 func _ready():
 	ui.game_started.connect(_start)
+	update_spawn_points()
 
+func update_spawn_points():
+	# Clear existing spawn points
+	spawn_points.clear()
+	
+	# Populate spawn_points array with the positions along the path
+	%PathFollow2D2.progress_ratio = randf()
+	var point = %PathFollow2D2.global_position
+	spawn_points.append(point)
+
+func is_position_occupied(pos):
+	for tree_area in occupied_areas:
+		if occupied_areas[tree_area].has_point(pos):
+			return true
+	return false
+
+func spawn_tree():
+	# Check if there are available spawn points
+	if spawn_points.size() == 0:
+		return
+	
+	# Randomly select a spawn point index
+	var spawn_index = randi() % spawn_points.size()
+	var spawn_point = spawn_points[spawn_index]
+	
+	# Check if the spawn point is already occupied
+	if is_position_occupied(spawn_point):
+		return
+	
+	# Instantiate the tree
+	var new_tree = preload("res://pine_tree.tscn").instantiate()
+	new_tree.global_position = spawn_point
+	add_child(new_tree)
+	
+	var tree_sprite_size = Vector2(200, 200)
+
+	# Desired buffer space around the sprite size
+	var buffer_space = Vector2(20, 20)
+	
+	# Calculate the occupied area size
+	var occupied_area_size = (tree_sprite_size + buffer_space) * 2
+	
+	# Adjust the spawn area based on the occupied area size
+	var tree_area = Rect2(spawn_point - occupied_area_size / 2, occupied_area_size)
+	occupied_areas[new_tree] = tree_area
+	
+	# Remove the chosen spawn point from the array
+	spawn_points.pop_back()
+	
 func _start():
 	game_has_started.emit()
 	ui.update_points(points)
@@ -77,16 +139,16 @@ func spawn_mob2():
 	add_child(new_mob2)
 	number_of_mobs2 += 1
 
-func spawn_tree():
-	const TREE_INSTANCE = preload("res://pine_tree.tscn")
-	var new_tree = TREE_INSTANCE.instantiate()
+# func spawn_tree():
+# 	const TREE_INSTANCE = preload("res://pine_tree.tscn")
+# 	var new_tree = TREE_INSTANCE.instantiate()
 	
-	%PathFollow2D.progress_ratio = randf()
-	new_tree.global_position = %PathFollow2D.global_position
-	add_child(new_tree)
+# 	%PathFollow2D.progress_ratio = randf()
+# 	new_tree.global_position = %PathFollow2D.global_position
+# 	add_child(new_tree)
 
-func _on_tree_timer_timeout():
-	spawn_tree()
+# func _on_tree_timer_timeout():
+# 	spawn_tree()
 
 func _on_timer_timeout():
 	if number_of_mobs < maxnumber_of_mobs:
