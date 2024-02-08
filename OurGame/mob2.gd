@@ -9,7 +9,7 @@ signal mob_died2
 func _ready():
 	%Slime2.play_walk()
 
-func _physics_process(_delta):
+func _process(_delta):
 	var direction = global_position.direction_to(player.global_position)
 	velocity = direction * 400
 	move_and_slide()

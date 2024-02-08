@@ -50,7 +50,7 @@ func checkhealth():
 	else:
 		pass
 
-func _physics_process(delta):
+func _process(delta):
 	if not started and in_game_screen.visible == false:
 		return
 	elif started == true and in_game_screen.visible == true:

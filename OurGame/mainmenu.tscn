@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=36 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="3_a10ml"]
 [ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime.tscn" id="4_hvi3l"]
 [ext_resource type="Texture2D" uid="uid://caqfk2xng5v5u" path="res://trees/pine_tree.png" id="5_d1dsl"]
+[ext_resource type="Script" path="res://fps_counter.gd" id="6_ybwrd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5tkl5"]
 font_size = 62
@@ -325,6 +326,18 @@ offset_right = 246.0
 offset_bottom = 203.0
 text = "Health: 0"
 label_settings = SubResource("LabelSettings_gqoqt")
+
+[node name="in_game_fps" type="Node2D" parent="in_game/GameUI"]
+
+[node name="fps_counter" type="Label" parent="in_game/GameUI/in_game_fps"]
+offset_left = 26.0
+offset_top = 200.0
+offset_right = 251.0
+offset_bottom = 272.0
+text = "FPS: 60"
+label_settings = SubResource("LabelSettings_gqoqt")
+vertical_alignment = 2
+script = ExtResource("6_ybwrd")
 
 [node name="UpgradeUI" type="CanvasLayer" parent="in_game"]
 visible = false
