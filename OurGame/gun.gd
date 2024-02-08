@@ -8,7 +8,7 @@ var xp_level = 1
 @onready var main_menu = get_node("/root/Game/UI/main_menu/MenuUI")
 @onready var settings = get_node("/root/Game/UI/settings/SettingsUI")
 
-var shotgun_level = 3
+var shotgun_level = 0
 
 var mouse_position = Vector2()
 
