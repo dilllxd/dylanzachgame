@@ -30,8 +30,8 @@ var username = null
 
 @onready var end_of_game_screen = $end_game/GameOver
 @onready var in_game_screen = $in_game/GameUI
-@onready var main_menu = $main_menu
-@onready var settings = $settings
+@onready var main_menu = $main_menu/MenuUI
+@onready var settings = $settings/SettingsUI
 @onready var save_failed = $save_failed/SaveFailed
 @onready var upgrade_screen = $in_game/UpgradeUI
 @onready var pause_screen = $in_game/PauseUI
@@ -49,7 +49,6 @@ func update_xp(level):
 	xp_level = level
 
 func update_ui():
-	in_game_screen.visible = true
 	$in_game/GameUI/in_game_score/score.text = "Points: %d" % game_points
 	$in_game/GameUI/in_game_xp/score.text = "XP Level: %d" % xp_level
 	$in_game/GameUI/in_game_health/health.text = "Health: %d" % player.health
@@ -81,6 +80,7 @@ func send_points():
 	var headers = ["Authorization: testauthorization", "Content-Type: application/json"]
 	
 	http_request.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
+	in_game_screen.visible = true
 
 func _on_request_completed(_result, response_code, _headers, _body):
 	if response_code == 200:
@@ -93,6 +93,7 @@ func _on_restart_button_pressed():
 	send_points()
 
 func _on_play_button_pressed():
+	in_game_screen.visible = true
 	if username == null:
 		%Label1.visible = true
 		%ProgressBar1.visible = true
@@ -117,12 +118,12 @@ func _on_back_button_pressed():
 	main_menu.visible = true
 
 func _on_save_username_pressed():
-	username = $settings/ColorRect/UsernameField.text
-	$settings/ColorRect/SaveUsername/Label.text = "Success!"
+	username = $settings/SettingsUI/ColorRect/UsernameField.text
+	$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Success!"
 	%Label1.visible = false
 	%ProgressBar1.visible = false
 	await get_tree().create_timer(3).timeout
-	$settings/ColorRect/SaveUsername/Label.text = "Save Username"
+	$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Save Username"
 
 func _on_restart_anyway_button_pressed():
 	get_tree().reload_current_scene()

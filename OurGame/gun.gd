@@ -5,8 +5,8 @@ extends Area2D
 var xp_level = 1
 
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
-@onready var main_menu = get_node("/root/Game/UI/main_menu")
-@onready var settings = get_node("/root/Game/UI/settings")
+@onready var main_menu = get_node("/root/Game/UI/main_menu/MenuUI")
+@onready var settings = get_node("/root/Game/UI/settings/SettingsUI")
 
 var shotgun_level = 0
 
