@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dr62riwcjhn2l"]
+[gd_scene load_steps=15 format=3 uid="uid://dr62riwcjhn2l"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_fp1mf"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_tf31y"]
@@ -34,6 +34,25 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_juff1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhveh"]
+bg_color = Color(0.152941, 0.168627, 0.188235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgaec"]
+bg_color = Color(0.0745098, 0.537255, 0.698039, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_133ji"]
+font_size = 10
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_fp1mf")
@@ -79,10 +98,45 @@ shape = SubResource("CircleShape2D_ejw61")
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 offset_left = -88.0
-offset_top = -147.0
+offset_top = -160.0
 offset_right = 89.0
-offset_bottom = -120.0
+offset_bottom = -133.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xq1g3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_62ru4")
 value = 100.0
 rounded = true
+show_percentage = false
+
+[node name="Health" type="Label" parent="ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 171.0
+offset_bottom = 25.0
+label_settings = SubResource("LabelSettings_juff1")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="XPBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -80.0
+offset_top = -133.0
+offset_right = 80.0
+offset_bottom = -117.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lhveh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cgaec")
+rounded = true
+show_percentage = false
+
+[node name="XP" type="Label" parent="XPBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 152.0
+offset_bottom = 15.0
+label_settings = SubResource("LabelSettings_133ji")
+horizontal_alignment = 1
+vertical_alignment = 1

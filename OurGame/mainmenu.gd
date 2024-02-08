@@ -50,19 +50,18 @@ func update_xp(level):
 
 func update_ui():
 	$in_game/GameUI/in_game_score/score.text = "Points: %d" % game_points
-	$in_game/GameUI/in_game_xp/score.text = "XP Level: %d" % xp_level
-	$in_game/GameUI/in_game_health/health.text = "Health: %d" % player.health
-	$in_game/UpgradeUI/ColorRect/Points.text = "Points: %d" % game_points
-	$in_game/UpgradeUI/ColorRect/XP.text = "XP Level: %d" % xp_level
-	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/LevelLabel.text = "Current Level: " + shotgun_level_text
-	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/UpgradePriceLabel.text = "Upgrade Price: " + shotgun_price_text
-	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: " + speed_boost_level_text
-	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: " + speed_boost_price_text
-	$in_game/UpgradeUI/ColorRect/UpgradeHealth/LevelLabel.text = "Current Level: " + health_upgrade_level_text
-	$in_game/UpgradeUI/ColorRect/UpgradeHealth/UpgradePriceLabel.text = "Upgrade Price: " + health_upgrade_price_text
-	$in_game/UpgradeUI/ColorRect/UpgradeShotgun/TextLabel.text = shotgun_upgrade_text
-	$in_game/UpgradeUI/ColorRect/UpgradeSpeed/TextLabel.text = speed_boost_upgrade_text
-	$in_game/UpgradeUI/ColorRect/UpgradeHealth/TextLabel.text = health_upgrade_upgrade_text
+	$in_game/GameUI/in_game_xp/xp.text = str(xp_level)
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/Points.text = "Points: %d" % game_points
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/XP.text = "XP Level: %d" % xp_level
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun/LevelLabel.text = "Current Level: " + shotgun_level_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun/UpgradePriceLabel.text = "Upgrade Price: " + shotgun_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/LevelLabel.text = "Current Level: " + speed_boost_level_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: " + speed_boost_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/LevelLabel.text = "Current Level: " + health_upgrade_level_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/UpgradePriceLabel.text = "Upgrade Price: " + health_upgrade_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun/TextLabel.text = shotgun_upgrade_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/TextLabel.text = speed_boost_upgrade_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/TextLabel.text = health_upgrade_upgrade_text
 	
 func on_game_over():
 	in_game_screen.visible = false
@@ -195,7 +194,7 @@ func _on_upgrade_shotgun_pressed():
 				await get_tree().create_timer(3).timeout
 				shotgun_upgrade_text = "Upgrade Shotgun"
 		else:
-			shotgun_upgrade_text = "You are not high enough level!"
+			shotgun_upgrade_text = "You are not high enough level! Level Required: 5"
 			await get_tree().create_timer(3).timeout
 			shotgun_upgrade_text = "Upgrade Shotgun"
 	elif shotgun_level == 1:
@@ -214,7 +213,7 @@ func _on_upgrade_shotgun_pressed():
 				await get_tree().create_timer(3).timeout
 				shotgun_upgrade_text = "Upgrade Shotgun"
 		else:
-			shotgun_upgrade_text = "You are not high enough level!"
+			shotgun_upgrade_text = "You are not high enough level! Level Required: 15"
 			await get_tree().create_timer(3).timeout
 			shotgun_upgrade_text = "Upgrade Shotgun"
 	else:
@@ -222,7 +221,7 @@ func _on_upgrade_shotgun_pressed():
 			
 func _on_upgrade_speed_pressed():
 	if speed_boost_level == 0:
-		if xp_level >= 10:
+		if xp_level >= 5:
 			if game_points >= speed_boost_price:
 				game_points -= speed_boost_price
 				speed_boost_level_text = "1"
@@ -237,11 +236,11 @@ func _on_upgrade_speed_pressed():
 				await get_tree().create_timer(3).timeout
 				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You are not high enough level!"
+			speed_boost_upgrade_text = "You are not high enough level! Level Required: 5"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	elif speed_boost_level == 1:
-		if xp_level >= 25:
+		if xp_level >= 7:
 			if game_points >= speed_boost_price:
 				game_points -= speed_boost_price
 				speed_boost_level_text = "2"
@@ -256,11 +255,11 @@ func _on_upgrade_speed_pressed():
 				await get_tree().create_timer(3).timeout
 				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You are not high enough level!"
+			speed_boost_upgrade_text = "You are not high enough level! Level Required: 7"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	elif speed_boost_level == 2:
-		if xp_level >= 40:
+		if xp_level >= 15:
 			if game_points >= speed_boost_price:
 				game_points -= speed_boost_price
 				speed_boost_level_text = "Max (3)"
@@ -275,7 +274,7 @@ func _on_upgrade_speed_pressed():
 				await get_tree().create_timer(3).timeout
 				speed_boost_upgrade_text = "Upgrade Speed Boost"
 		else:
-			speed_boost_upgrade_text = "You are not high enough level!"
+			speed_boost_upgrade_text = "You are not high enough level! Level Required: 15"
 			await get_tree().create_timer(3).timeout
 			speed_boost_upgrade_text = "Upgrade Speed Boost"
 	else:
@@ -283,7 +282,7 @@ func _on_upgrade_speed_pressed():
 
 func _on_upgrade_health_pressed():
 	if health_upgrade_level == 0:
-		if xp_level >= 10:
+		if xp_level >= 7:
 			if game_points >= health_upgrade_price:
 				game_points -= health_upgrade_price
 				health_upgrade_level_text = "1"
@@ -298,11 +297,11 @@ func _on_upgrade_health_pressed():
 				await get_tree().create_timer(3).timeout
 				health_upgrade_upgrade_text = "Upgrade Health"
 		else:
-			health_upgrade_upgrade_text = "You are not high enough level!"
+			health_upgrade_upgrade_text = "You are not high enough level! Level Required: 7"
 			await get_tree().create_timer(3).timeout
 			health_upgrade_upgrade_text = "Upgrade Health"
 	elif health_upgrade_level == 1:
-		if xp_level >= 20:
+		if xp_level >= 10:
 			if game_points >= health_upgrade_price:
 				game_points -= health_upgrade_price
 				health_upgrade_level_text = "Max (2)"
@@ -317,7 +316,7 @@ func _on_upgrade_health_pressed():
 				await get_tree().create_timer(3).timeout
 				health_upgrade_upgrade_text = "Upgrade Health"
 		else:
-			health_upgrade_upgrade_text = "You are not high enough level!"
+			health_upgrade_upgrade_text = "You are not high enough level! Level Required: 10"
 			await get_tree().create_timer(3).timeout
 			health_upgrade_upgrade_text = "Upgrade Health"
 	else:

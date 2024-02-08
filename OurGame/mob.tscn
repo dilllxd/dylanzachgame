@@ -20,3 +20,11 @@ unique_name_in_owner = true
 position = Vector2(0, -28)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nn7ee")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+navigation_layers = 15
+avoidance_layers = 15
+avoidance_mask = 15
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

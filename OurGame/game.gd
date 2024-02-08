@@ -93,7 +93,6 @@ func _start():
 	mob2_xp_scaling()
 	player.currentxplevel(xp_level)
 	timer.start()
-	ttimer.start()
 
 func mob_xp_scaling():
 	if xp_level >= 3:
@@ -139,17 +138,6 @@ func spawn_mob2():
 	add_child(new_mob2)
 	number_of_mobs2 += 1
 
-# func spawn_tree():
-# 	const TREE_INSTANCE = preload("res://pine_tree.tscn")
-# 	var new_tree = TREE_INSTANCE.instantiate()
-	
-# 	%PathFollow2D.progress_ratio = randf()
-# 	new_tree.global_position = %PathFollow2D.global_position
-# 	add_child(new_tree)
-
-# func _on_tree_timer_timeout():
-# 	spawn_tree()
-
 func _on_timer_timeout():
 	if number_of_mobs < maxnumber_of_mobs:
 		spawn_mob()
@@ -186,7 +174,11 @@ func _on_mob_died2():
 	
 func update_xp():
 	xp += 1
+	$Player/XPBar.value = xp
+	$Player/XPBar.max_value = mobs_to_next_level
 	if xp >= mobs_to_next_level:
+		$Player/XPBar.value = xp
+		$Player/XPBar.max_value = mobs_to_next_level
 		xp -= mobs_to_next_level
 		xp_level += 1
 		mobs_to_next_level += mobs_per_level_increase

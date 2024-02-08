@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccn3016x6cl35"]
+[gd_scene load_steps=9 format=3 uid="uid://ccn3016x6cl35"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_l1rnh"]
 [ext_resource type="PackedScene" uid="uid://dr62riwcjhn2l" path="res://player.tscn" id="1_w3s25"]
@@ -19,6 +19,10 @@ point_count = 150
 
 [sub_resource type="LabelSettings" id="LabelSettings_3vp3d"]
 font_size = 65
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kpje7"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(-128, -128, 2112, -128, 2112, 1217, -128, 1216)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -54,6 +58,8 @@ position = Vector2(-76, -106)
 rotation = -0.000922084
 
 [node name="Path2D2" type="Path2D" parent="Player"]
+position = Vector2(-157.209, -111.193)
+scale = Vector2(1.68463, 1.66123)
 curve = SubResource("Curve2D_usuwi")
 
 [node name="PathFollow2D2" type="PathFollow2D" parent="Player/Path2D2"]
@@ -123,13 +129,12 @@ grow_vertical = 2
 text = "You Died"
 label_settings = SubResource("LabelSettings_3vp3d")
 
-[node name="TreeTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 1.045
-
 [node name="UI" parent="." instance=ExtResource("4_q5fxp")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_kpje7")
+navigation_layers = 15
 
 [connection signal="game_has_started" from="." to="UI" method="_on_game_game_has_started"]
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="TreeTimer" to="." method="_on_tree_timer_timeout"]

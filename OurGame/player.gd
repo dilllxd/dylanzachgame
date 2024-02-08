@@ -51,6 +51,8 @@ func checkhealth():
 		pass
 
 func _process(delta):
+	%Health.text = str(round(health))
+	%XP.text = str(xp_level)
 	if not started and in_game_screen.visible == false:
 		return
 	elif started == true and in_game_screen.visible == true:
@@ -58,11 +60,11 @@ func _process(delta):
 		if speed_boost_level == 0:
 			velocity = direction * 600
 		elif speed_boost_level == 1:
-			velocity = direction * 800
+			velocity = direction * 650
 		elif speed_boost_level == 2:
-			velocity = direction * 900
+			velocity = direction * 700
 		elif speed_boost_level == 3:
-			velocity = direction * 1000
+			velocity = direction * 750
 		else:
 			velocity = direction * 600
 		move_and_slide()
