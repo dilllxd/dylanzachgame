@@ -7,6 +7,8 @@ var xp_level = 1
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
 @onready var main_menu = get_node("/root/Game/UI/main_menu/MenuUI")
 @onready var settings = get_node("/root/Game/UI/settings/SettingsUI")
+@onready var upgrade_screen = get_node("/root/Game/UI/in_game/UpgradeUI")
+@onready var pause_screen = get_node("/root/Game/UI/in_game/PauseUI")
 
 var shotgun_level = 0
 
@@ -77,7 +79,8 @@ func _input(event):
 		canShoot = false # Reset auto-shooting flag when mouse button is released
 
 func _process(delta):
-	if mouse_left_down:
+	if Input.is_action_pressed("fire_shot"):
+		mouse_left_down = true
 		time_held_down += delta
 
 		# Enable auto-shooting after the delay
@@ -89,3 +92,8 @@ func _process(delta):
 			if time_since_last_shot >= shoot_interval:
 				shoot()
 				time_since_last_shot = 0
+	elif Input.is_action_just_released("fire_shot"):
+		mouse_left_down = false
+		time_held_down = 0
+		canShoot = false
+
