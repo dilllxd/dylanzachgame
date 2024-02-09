@@ -12,6 +12,8 @@ var shotgun_level = 0
 
 var mouse_position = Vector2()
 
+signal bullet_hit
+
 func _physics_process(_delta):
 	if player_health.value > 0:
 		# Calculate rotation based on mouse input
@@ -33,39 +35,6 @@ func _physics_process(_delta):
 
 func upgradeshotgun(level):
 	shotgun_level = level
-
-#func shoot():
-	#const BULLET = preload("res://bullet.tscn")
-	#var new_bullet = BULLET.instantiate()
-	#var new_bullet2 = BULLET.instantiate()
-	#var new_bullet3 = BULLET.instantiate()
-	#var new_bullet4 = BULLET.instantiate()
-	#var new_bullet5 = BULLET.instantiate()
-	#new_bullet.global_position = %ShootingPoint.global_position
-	#new_bullet.global_rotation = %ShootingPoint.global_rotation 
-	#new_bullet2.global_position = %ShootingPoint.global_position
-	#new_bullet2.global_rotation = %ShootingPoint.global_rotation -.2
-	#new_bullet3.global_position = %ShootingPoint.global_position
-	#new_bullet3.global_rotation = %ShootingPoint.global_rotation +.2
-	#new_bullet4.global_position = %ShootingPoint.global_position
-	#new_bullet4.global_rotation = %ShootingPoint.global_rotation -.4
-	#new_bullet5.global_position = %ShootingPoint.global_position
-	#new_bullet5.global_rotation = %ShootingPoint.global_rotation +.4
-	#
-	#if shotgun_level == 0:
-		#%ShootingPoint.add_child(new_bullet)
-	#elif shotgun_level == 1:
-		#%ShootingPoint.add_child(new_bullet)
-		#%ShootingPoint.add_child(new_bullet2)
-		#%ShootingPoint.add_child(new_bullet3)
-	#elif shotgun_level == 2:
-		#%ShootingPoint.add_child(new_bullet)
-		#%ShootingPoint.add_child(new_bullet2)
-		#%ShootingPoint.add_child(new_bullet3)
-		#%ShootingPoint.add_child(new_bullet4)
-		#%ShootingPoint.add_child(new_bullet5)
-	#else:
-		#%ShootingPoint.add_child(new_bullet)
 		
 func shoot():
 	const BULLET = preload("res://bullet.tscn")
@@ -84,6 +53,11 @@ func shoot():
 		new_bullet.global_rotation = %ShootingPoint.global_rotation + i * bullet_angle_increment - (bullet_angle_increment * (bullet_count - 1)) / 2
 		bullets.append(new_bullet)
 		%ShootingPoint.add_child(new_bullet)
+		
+		new_bullet.take_damage.connect(send_lifesteal)
+
+func send_lifesteal():
+	bullet_hit.emit()
 
 var mouse_left_down: bool = false
 var time_held_down: float = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=39 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -83,8 +83,17 @@ font_size = 24
 [sub_resource type="LabelSettings" id="LabelSettings_bkiy8"]
 font_size = 25
 
-[sub_resource type="LabelSettings" id="LabelSettings_sfeif"]
+[sub_resource type="LabelSettings" id="LabelSettings_1sqa4"]
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_gx312"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ohxk3"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_k3omp"]
+font_size = 25
 
 [sub_resource type="LabelSettings" id="LabelSettings_rs4ii"]
 font_size = 54
@@ -392,7 +401,7 @@ autowrap_mode = 3
 layout_mode = 0
 offset_top = 128.0
 offset_right = 640.0
-offset_bottom = 224.0
+offset_bottom = 256.0
 text = "Details on the upgrade, change based on current level upgrade."
 label_settings = SubResource("LabelSettings_4li0a")
 horizontal_alignment = 1
@@ -413,8 +422,10 @@ autowrap_mode = 3
 
 [node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun"]
 layout_mode = 0
-offset_right = 320.0
-offset_bottom = 128.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 121.0
 text = "Upgrade Shotgun"
 label_settings = SubResource("LabelSettings_urdda")
 horizontal_alignment = 1
@@ -445,7 +456,7 @@ autowrap_mode = 3
 layout_mode = 0
 offset_top = 128.0
 offset_right = 640.0
-offset_bottom = 224.0
+offset_bottom = 256.0
 text = "Details on the upgrade, change based on current level upgrade."
 label_settings = SubResource("LabelSettings_dclab")
 horizontal_alignment = 1
@@ -466,8 +477,10 @@ autowrap_mode = 3
 
 [node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed"]
 layout_mode = 0
-offset_right = 320.0
-offset_bottom = 128.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 120.0
 text = "Upgrade Speed Boost"
 label_settings = SubResource("LabelSettings_7d4w1")
 horizontal_alignment = 1
@@ -496,7 +509,7 @@ autowrap_mode = 3
 layout_mode = 0
 offset_top = 128.0
 offset_right = 640.0
-offset_bottom = 225.0
+offset_bottom = 256.0
 text = "Details on the upgrade, change based on current level upgrade."
 label_settings = SubResource("LabelSettings_t5kmx")
 horizontal_alignment = 1
@@ -517,25 +530,68 @@ autowrap_mode = 3
 
 [node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth"]
 layout_mode = 0
-offset_top = 1.0
-offset_right = 320.0
-offset_bottom = 128.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 120.0
 text = "Upgrade Health"
 label_settings = SubResource("LabelSettings_bkiy8")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect"]
-layout_mode = 2
-offset_left = 3.0
-offset_top = 1824.0
-offset_right = 332.0
-offset_bottom = 1924.0
-text = "scroll works :)"
-label_settings = SubResource("LabelSettings_sfeif")
+[node name="UpgradeLifeSteal" type="Button" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect"]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 256.0
+offset_right = 1152.0
+offset_bottom = 384.0
+
+[node name="LevelLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal"]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 640.0
+offset_bottom = 64.0
+text = "Current Level: 0"
+label_settings = SubResource("LabelSettings_1sqa4")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="InformationLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal"]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 640.0
+offset_bottom = 256.0
+text = "Details on the upgrade, change based on current level upgrade."
+label_settings = SubResource("LabelSettings_gx312")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="UpgradePriceLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 640.0
+offset_bottom = 128.0
+text = "Upgrade Price: 0"
+label_settings = SubResource("LabelSettings_ohxk3")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 120.0
+text = "Upgrade Life Steal"
+label_settings = SubResource("LabelSettings_k3omp")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="PauseUI" type="CanvasLayer" parent="in_game"]
 visible = false
@@ -734,11 +790,12 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun" to="." method="_on_upgrade_shotgun_pressed"]
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed" to="." method="_on_upgrade_speed_pressed"]
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth" to="." method="_on_upgrade_health_pressed"]
+[connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal" to="." method="_on_upgrade_life_steal_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/ResumeGameFromPause" to="." method="_on_resume_game_from_pause_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]

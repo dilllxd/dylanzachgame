@@ -2,11 +2,17 @@ extends CharacterBody2D
 
 @onready var ui = $"../../Game/UI"
 
+#@onready var bullet = get_node("/root/Game/Player/Gun/WeaponPivot/Pistol/ShootingPoint/Bullet")
+
+@onready var gun = get_node("/root/Game/Player/Gun")
+
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
 
 signal health_depleted
 
 var speed_boost_level = 0
+
+var lifesteal_upgrade_level = 0
 
 var health_upgrade_level = 0
 
@@ -19,6 +25,10 @@ var started = false
 var xp_level = 1
 
 var xp_level_scaling = null
+
+const LIFE_STEAL_PROBABILITY = 0.3
+
+const LIFE_STEAL_AMOUNT = 5
 
 func _ready():
 	ui.game_started.connect(_started)
@@ -34,8 +44,37 @@ func upgradehealth(level):
 	health_upgrade_level = level
 	checkhealth()
 
+func upgradelifesteal(level):
+	lifesteal_upgrade_level = level
+	checklifesteal()
+	
 func currentxplevel(level):
 	xp_level = level
+
+func checklifesteal():
+	if lifesteal_upgrade_level == 1:
+		if randf() < LIFE_STEAL_PROBABILITY:
+			health += LIFE_STEAL_AMOUNT
+			health = min(healthmax, health)
+			%ProgressBar.value = health
+		else:
+			%ProgressBar.value = health
+	elif lifesteal_upgrade_level == 2:
+		if randf() < LIFE_STEAL_PROBABILITY+.2:
+			health += LIFE_STEAL_AMOUNT+2
+			health = min(healthmax, health)
+			%ProgressBar.value = health
+		else:
+			%ProgressBar.value = health
+	elif lifesteal_upgrade_level == 3:
+		if randf() < LIFE_STEAL_PROBABILITY+.2+.5:
+			health += LIFE_STEAL_AMOUNT+2+3
+			health = min(healthmax, health)
+			%ProgressBar.value = health
+		else:
+			%ProgressBar.value = health
+	else:
+		pass
 
 func checkhealth():
 	if health_upgrade_level == 0:
@@ -53,6 +92,7 @@ func checkhealth():
 func _process(delta):
 	%Health.text = str(round(health))
 	%XP.text = str(xp_level)
+	gun.bullet_hit.connect(checklifesteal)
 	if not started and in_game_screen.visible == false:
 		return
 	elif started == true and in_game_screen.visible == true:

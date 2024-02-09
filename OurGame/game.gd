@@ -177,11 +177,11 @@ func update_xp():
 	$Player/XPBar.value = xp
 	$Player/XPBar.max_value = mobs_to_next_level
 	if xp >= mobs_to_next_level:
-		$Player/XPBar.value = xp
-		$Player/XPBar.max_value = mobs_to_next_level
 		xp -= mobs_to_next_level
 		xp_level += 1
 		mobs_to_next_level += mobs_per_level_increase
+		$Player/XPBar.value = xp
+		$Player/XPBar.max_value = mobs_to_next_level
 		ui.update_xp(xp_level)
 		player.currentxplevel(xp_level)
 		ui.update_ui()

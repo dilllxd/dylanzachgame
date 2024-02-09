@@ -24,6 +24,12 @@ var health_upgrade_price = 150
 var health_upgrade_price_text = "150"
 var health_upgrade_upgrade_text = "Upgrade Health"
 
+var life_steal_level = 0
+var life_steal_level_text = "0"
+var life_steal_price = 150
+var life_steal_price_text = "150"
+var life_steal_upgrade_text = "Upgrade Life Steal"
+
 var after_purchase_points = null
 
 var username = null
@@ -59,9 +65,13 @@ func update_ui():
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/UpgradePriceLabel.text = "Upgrade Price: " + speed_boost_price_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/LevelLabel.text = "Current Level: " + health_upgrade_level_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/UpgradePriceLabel.text = "Upgrade Price: " + health_upgrade_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/LevelLabel.text = "Current Level: " + life_steal_level_text
+	%in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/UpgradePriceLabel.text = "Upgrade Price: " + life_steal_price_text
+	
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun/TextLabel.text = shotgun_upgrade_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/TextLabel.text = speed_boost_upgrade_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/TextLabel.text = health_upgrade_upgrade_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/TextLabel.text = life_steal_upgrade_text
 	
 func on_game_over():
 	in_game_screen.visible = false
@@ -79,7 +89,6 @@ func send_points():
 	var headers = ["Authorization: testauthorization", "Content-Type: application/json"]
 	
 	http_request.request("https://gameapi.dylan.lol/api/game/update_gold", headers, HTTPClient.METHOD_POST, json)
-	in_game_screen.visible = true
 
 func _on_request_completed(_result, response_code, _headers, _body):
 	if response_code == 200:
@@ -92,13 +101,13 @@ func _on_restart_button_pressed():
 	send_points()
 
 func _on_play_button_pressed():
-	in_game_screen.visible = true
 	if username == null:
 		%Label1.visible = true
 		%ProgressBar1.visible = true
 	else:
 		%Label1.visible = false
 		%ProgressBar1.visible = false
+		in_game_screen.visible = true
 		game_started.emit()
 
 func _on_game_game_has_started():
@@ -319,5 +328,67 @@ func _on_upgrade_health_pressed():
 			health_upgrade_upgrade_text = "You are not high enough level! Level Required: 10"
 			await get_tree().create_timer(3).timeout
 			health_upgrade_upgrade_text = "Upgrade Health"
+	else:
+		pass
+
+
+func _on_upgrade_life_steal_pressed():
+	if life_steal_level == 0:
+		if xp_level >= 5:
+			if game_points >= life_steal_price:
+				game_points -= life_steal_price
+				life_steal_level_text = "1"
+				life_steal_level = 1
+				player.upgradelifesteal(life_steal_level)
+				life_steal_price_text = "100"
+				life_steal_price = 100
+				life_steal_upgrade_text = "Upgrade Life Steal"
+				update_ui()
+			else:
+				life_steal_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				life_steal_upgrade_text = "Upgrade Life Steal"
+		else:
+			life_steal_upgrade_text = "You are not high enough level! Level Required: 5"
+			await get_tree().create_timer(3).timeout
+			life_steal_upgrade_text = "Upgrade Life Steal"
+	elif life_steal_level == 1:
+		if xp_level >= 7:
+			if game_points >= life_steal_price:
+				game_points -= life_steal_price
+				life_steal_level_text = "2"
+				life_steal_level = 2
+				player.upgradelifesteal(life_steal_level)
+				life_steal_price_text = "200"
+				life_steal_price = 200
+				life_steal_upgrade_text = "Upgrade Life Steal"
+				update_ui()
+			else:
+				life_steal_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				life_steal_upgrade_text = "Upgrade Life Steal"
+		else:
+			life_steal_upgrade_text = "You are not high enough level! Level Required: 7"
+			await get_tree().create_timer(3).timeout
+			life_steal_upgrade_text = "Upgrade Life Steal"
+	elif life_steal_level == 2:
+		if xp_level >= 15:
+			if game_points >= life_steal_price:
+				game_points -= life_steal_price
+				life_steal_level_text = "Max (3)"
+				life_steal_level = 3
+				player.upgradelifesteal(life_steal_level)
+				life_steal_price_text = "None"
+				life_steal_price = 0
+				life_steal_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				life_steal_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				life_steal_upgrade_text = "Upgrade Life Steal"
+		else:
+			life_steal_upgrade_text = "You are not high enough level! Level Required: 15"
+			await get_tree().create_timer(3).timeout
+			life_steal_upgrade_text = "Upgrade Life Steal"
 	else:
 		pass
