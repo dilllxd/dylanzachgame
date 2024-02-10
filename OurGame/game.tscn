@@ -97,7 +97,11 @@ position = Vector2(920, 933)
 [node name="PineTree10" parent="." instance=ExtResource("2_fqngh")]
 position = Vector2(168, 684)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="MobTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="Mob2Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.2
 
@@ -137,4 +141,5 @@ navigation_layers = 15
 
 [connection signal="game_has_started" from="." to="UI" method="_on_game_game_has_started"]
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="Mob2Timer" to="." method="_on_mob_2_timer_timeout"]

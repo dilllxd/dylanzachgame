@@ -18,8 +18,8 @@ var spawn_points = []
 
 
 @onready var ui = $UI
-@onready var timer = $Timer
-@onready var ttimer = $TreeTimer
+@onready var mobtimer = $MobTimer
+@onready var mob2timer = $Mob2Timer
 @onready var player = $Player
 
 signal game_has_started
@@ -30,6 +30,11 @@ func _process(delta):
 		update_spawn_points()
 		spawn_update_timer = 0.0
 		spawn_tree()
+	if number_of_mobs == maxnumber_of_mobs:
+		mobtimer.stop()
+		
+	if number_of_mobs2 == maxnumber_of_mobs2:
+		mob2timer.stop()
 		
 func _ready():
 	ui.game_started.connect(_start)
@@ -92,7 +97,8 @@ func _start():
 	mob_xp_scaling()
 	mob2_xp_scaling()
 	player.currentxplevel(xp_level)
-	timer.start()
+	mobtimer.start()
+	mob2timer.start()
 
 func mob_xp_scaling():
 	if xp_level >= 3:
@@ -138,14 +144,18 @@ func spawn_mob2():
 	add_child(new_mob2)
 	number_of_mobs2 += 1
 
-func _on_timer_timeout():
+func _on_mob_timer_timeout():
 	if number_of_mobs < maxnumber_of_mobs:
 		spawn_mob()
-	elif number_of_mobs2 < maxnumber_of_mobs2:
-		spawn_mob2()
 	else:
 		pass
 
+func _on_mob_2_timer_timeout():
+	if number_of_mobs2 < maxnumber_of_mobs2:
+		spawn_mob2()
+	else:
+		pass
+	
 func _on_mob_died():
 	number_of_mobs -= 1
 	points = 1
@@ -190,3 +200,7 @@ func update_xp():
 
 func _on_player_health_depleted():
 	ui.on_game_over()
+
+
+
+
