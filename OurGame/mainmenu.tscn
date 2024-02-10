@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=47 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -93,6 +93,30 @@ font_size = 24
 font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_k3omp"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ubna"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_0deoo"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_fvpd6"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_kmiq7"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_5kspf"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_dn4hm"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_b5ldi"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ubas2"]
 font_size = 25
 
 [sub_resource type="LabelSettings" id="LabelSettings_rs4ii"]
@@ -793,6 +817,170 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="UpgradeMoreDamage" type="Button" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.617
+anchor_top = 0.504
+anchor_right = 0.617
+anchor_bottom = 0.504
+offset_left = -160.64
+offset_top = -64.32
+offset_right = 159.36
+offset_bottom = 63.68
+theme_override_font_sizes/font_size = 30
+
+[node name="LevelLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.5
+anchor_top = 0.25
+anchor_right = 1.5
+anchor_bottom = 0.25
+offset_left = -160.0
+offset_top = -32.0
+offset_right = 160.0
+offset_bottom = 32.0
+text = "Current Level: 0"
+label_settings = SubResource("LabelSettings_2ubna")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="InformationLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.5
+anchor_right = 1.0
+anchor_bottom = 1.5
+offset_left = -320.0
+offset_top = -64.0
+offset_right = 320.0
+offset_bottom = 64.0
+text = "Details on the upgrade, change based on current level upgrade."
+label_settings = SubResource("LabelSettings_0deoo")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="UpgradePriceLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.5
+anchor_top = 0.75
+anchor_right = 1.5
+anchor_bottom = 0.75
+offset_left = -160.0
+offset_top = -32.0
+offset_right = 160.0
+offset_bottom = 32.0
+text = "Upgrade Price: 0"
+label_settings = SubResource("LabelSettings_fvpd6")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = -152.0
+offset_top = -56.0
+offset_right = 152.0
+offset_bottom = 56.488
+text = "Upgrade More Damage"
+label_settings = SubResource("LabelSettings_kmiq7")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 171
+
+[node name="UpgradeFireBullets" type="Button" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.617
+anchor_top = 0.77
+anchor_right = 0.617
+anchor_bottom = 0.77
+offset_left = -160.64
+offset_top = -63.6
+offset_right = 159.36
+offset_bottom = 64.4
+theme_override_font_sizes/font_size = 30
+
+[node name="LevelLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.5
+anchor_top = 0.25
+anchor_right = 1.5
+anchor_bottom = 0.25
+offset_left = -160.0
+offset_top = -32.0
+offset_right = 160.0
+offset_bottom = 32.0
+text = "Current Level: 0"
+label_settings = SubResource("LabelSettings_5kspf")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="InformationLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.5
+anchor_right = 1.0
+anchor_bottom = 1.5
+offset_left = -320.0
+offset_top = -64.0
+offset_right = 320.0
+offset_bottom = 64.0
+text = "Details on the upgrade, change based on current level upgrade."
+label_settings = SubResource("LabelSettings_dn4hm")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="UpgradePriceLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.5
+anchor_top = 0.75
+anchor_right = 1.5
+anchor_bottom = 0.75
+offset_left = -160.0
+offset_top = -32.0
+offset_right = 160.0
+offset_bottom = 32.0
+text = "Upgrade Price: 0"
+label_settings = SubResource("LabelSettings_b5ldi")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextLabel" type="Label" parent="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = -152.0
+offset_top = -56.0
+offset_right = 152.0
+offset_bottom = 56.488
+text = "Upgrade Fire Bullets"
+label_settings = SubResource("LabelSettings_ubas2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 171
+
 [node name="PauseUI" type="CanvasLayer" parent="in_game"]
 visible = false
 
@@ -1019,11 +1207,13 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed" to="." method="_on_upgrade_speed_pressed"]
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth" to="." method="_on_upgrade_health_pressed"]
 [connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal" to="." method="_on_upgrade_life_steal_pressed"]
+[connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage" to="." method="_on_upgrade_more_damage_pressed"]
+[connection signal="pressed" from="in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets" to="." method="_on_upgrade_fire_bullets_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/ResumeGameFromPause" to="." method="_on_resume_game_from_pause_pressed"]
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]

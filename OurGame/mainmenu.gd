@@ -30,6 +30,18 @@ var life_steal_price = 150
 var life_steal_price_text = "150"
 var life_steal_upgrade_text = "Upgrade Life Steal"
 
+var fire_bullets_level = 0
+var fire_bullets_level_text = "0"
+var fire_bullets_price = 150
+var fire_bullets_price_text = "150"
+var fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+
+var more_damage_level = 0
+var more_damage_level_text = "0"
+var more_damage_price = 150
+var more_damage_price_text = "150"
+var more_damage_upgrade_text = "Upgrade More Damage"
+
 var after_purchase_points = null
 
 var username = null
@@ -66,18 +78,25 @@ func update_ui():
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/LevelLabel.text = "Current Level: " + health_upgrade_level_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/UpgradePriceLabel.text = "Upgrade Price: " + health_upgrade_price_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/LevelLabel.text = "Current Level: " + life_steal_level_text
-	%in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/UpgradePriceLabel.text = "Upgrade Price: " + life_steal_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/UpgradePriceLabel.text = "Upgrade Price: " + life_steal_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage/LevelLabel.text = "Current Level: " + more_damage_level_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage/UpgradePriceLabel.text = "Upgrade Price: " + more_damage_price_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets/LevelLabel.text = "Current Level: " + fire_bullets_level_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets/UpgradePriceLabel.text = "Upgrade Price: " + fire_bullets_price_text
+	
 	
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeShotgun/TextLabel.text = shotgun_upgrade_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeSpeed/TextLabel.text = speed_boost_upgrade_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeHealth/TextLabel.text = health_upgrade_upgrade_text
 	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeLifeSteal/TextLabel.text = life_steal_upgrade_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeMoreDamage/TextLabel.text = more_damage_upgrade_text
+	$in_game/UpgradeUI/Control/ScrollContainer/ColorRect/UpgradeFireBullets/TextLabel.text = fire_bullets_upgrade_text
 	
 func on_game_over():
 	in_game_screen.visible = false
 	end_of_game_screen.visible = true
-	$end_game/GameOver/ColorRect/end_game_score/score.text = "Points: %d" % game_points
-	$save_failed/SaveFailed/ColorRect/end_game_score/score.text = "Points: %d" % game_points
+	$end_game/GameOver/ColorRect/score.text = "Points: %d" % game_points
+	$save_failed/SaveFailed/ColorRect/score.text = "Points: %d" % game_points
 	
 func send_points():
 	var http_request = HTTPRequest.new()
@@ -390,5 +409,123 @@ func _on_upgrade_life_steal_pressed():
 			life_steal_upgrade_text = "You are not high enough level! Level Required: 15"
 			await get_tree().create_timer(3).timeout
 			life_steal_upgrade_text = "Upgrade Life Steal"
+	else:
+		pass
+
+
+func _on_upgrade_more_damage_pressed():
+	if more_damage_level == 0:
+		if xp_level >= 5:
+			if game_points >= more_damage_price:
+				game_points -= more_damage_price
+				more_damage_level_text = "1"
+				more_damage_level = 1
+				more_damage_price_text = "100"
+				more_damage_price = 100
+				more_damage_upgrade_text = "Upgrade More Damage"
+				update_ui()
+			else:
+				more_damage_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				more_damage_upgrade_text = "Upgrade More Damage"
+		else:
+			more_damage_upgrade_text = "You are not high enough level! Level Required: 5"
+			await get_tree().create_timer(3).timeout
+			more_damage_upgrade_text = "Upgrade More Damage"
+	elif more_damage_level == 1:
+		if xp_level >= 7:
+			if game_points >= more_damage_price:
+				game_points -= more_damage_price
+				more_damage_level_text = "2"
+				more_damage_level = 2
+				more_damage_price_text = "200"
+				more_damage_price = 200
+				more_damage_upgrade_text = "Upgrade More Damage"
+				update_ui()
+			else:
+				more_damage_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				more_damage_upgrade_text = "Upgrade More Damage"
+		else:
+			more_damage_upgrade_text = "You are not high enough level! Level Required: 7"
+			await get_tree().create_timer(3).timeout
+			more_damage_upgrade_text = "Upgrade More Damage"
+	elif more_damage_level == 2:
+		if xp_level >= 15:
+			if game_points >= more_damage_price:
+				game_points -= more_damage_price
+				more_damage_level_text = "Max (3)"
+				more_damage_level = 3
+				more_damage_price_text = "None"
+				more_damage_price = 0
+				more_damage_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				more_damage_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				more_damage_upgrade_text = "Upgrade More Damage"
+		else:
+			more_damage_upgrade_text = "You are not high enough level! Level Required: 15"
+			await get_tree().create_timer(3).timeout
+			more_damage_upgrade_text = "Upgrade More Damage"
+	else:
+		pass
+
+
+func _on_upgrade_fire_bullets_pressed():
+	if fire_bullets_level == 0:
+		if xp_level >= 1:
+			if game_points >= fire_bullets_price:
+				game_points -= fire_bullets_price
+				fire_bullets_level_text = "1"
+				fire_bullets_level = 1
+				fire_bullets_price_text = "100"
+				fire_bullets_price = 100
+				fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+				update_ui()
+			else:
+				fire_bullets_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+		else:
+			fire_bullets_upgrade_text = "You are not high enough level! Level Required: 5"
+			await get_tree().create_timer(3).timeout
+			fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+	elif fire_bullets_level == 1:
+		if xp_level >= 7:
+			if game_points >= fire_bullets_price:
+				game_points -= fire_bullets_price
+				fire_bullets_level_text = "2"
+				fire_bullets_level = 2
+				fire_bullets_price_text = "200"
+				fire_bullets_price = 200
+				fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+				update_ui()
+			else:
+				fire_bullets_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+		else:
+			fire_bullets_upgrade_text = "You are not high enough level! Level Required: 7"
+			await get_tree().create_timer(3).timeout
+			fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+	elif fire_bullets_level == 2:
+		if xp_level >= 15:
+			if game_points >= fire_bullets_price:
+				game_points -= fire_bullets_price
+				fire_bullets_level_text = "Max (3)"
+				fire_bullets_level = 3
+				fire_bullets_price_text = "None"
+				fire_bullets_price = 0
+				fire_bullets_upgrade_text = "You are at max level!"
+				update_ui()
+			else:
+				fire_bullets_upgrade_text = "You do not have enough points!"
+				await get_tree().create_timer(3).timeout
+				fire_bullets_upgrade_text = "Upgrade Fire Bullets"
+		else:
+			fire_bullets_upgrade_text = "You are not high enough level! Level Required: 15"
+			await get_tree().create_timer(3).timeout
+			fire_bullets_upgrade_text = "Upgrade Fire Bullets"
 	else:
 		pass

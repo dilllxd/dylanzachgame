@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 @onready var ui = $"../../Game/UI"
 
-#@onready var bullet = get_node("/root/Game/Player/Gun/WeaponPivot/Pistol/ShootingPoint/Bullet")
-
 @onready var gun = get_node("/root/Game/Player/Gun")
 
 @onready var in_game_screen = get_node("/root/Game/UI/in_game/GameUI")
