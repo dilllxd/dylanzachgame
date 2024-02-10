@@ -44,8 +44,7 @@ var more_damage_upgrade_text = "Upgrade More Damage"
 
 var after_purchase_points = null
 
-var username = null
-
+@onready var username = get_node("/root/Game/Player/Username")
 @onready var end_of_game_screen = $end_game/GameOver
 @onready var in_game_screen = $in_game/GameUI
 @onready var main_menu = $main_menu/MenuUI
@@ -56,12 +55,32 @@ var username = null
 @onready var gun = get_node("/root/Game/Player/Gun")
 @onready var player = get_node("/root/Game/Player")
 
+var leaderboard_labels = []
+
 func _ready():
 	%HappyBoo.play_idle_animation()
 	%Slime.play_walk()
+	
+	for i in range(1, 12):  # Assuming 11 labels numbered 1 through 11
+		var label_node_path = "/root/Game/UI/in_game/GameUI/leaderboard/VBoxContainer/" + str(i)
+		var label_node = get_node(label_node_path)
+		if label_node:
+			leaderboard_labels.append(label_node)
+		else:
+			print("Label node not found:", i)
+			
+	update_leaderboard()
+	
+	var update_timer = Timer.new()
+	update_timer.wait_time = 60
+	update_timer.one_shot = false
+	update_timer.connect("timeout", update_leaderboard)
+	add_child(update_timer)
+	update_timer.start()
 
 func update_points(points):
 	game_points += points
+	update_leaderboard()
 	
 func update_xp(level):
 	xp_level = level
@@ -146,6 +165,7 @@ func _on_back_button_pressed():
 
 func _on_save_username_pressed():
 	username = $settings/SettingsUI/ColorRect/UsernameField.text
+	update_leaderboard()
 	$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Success!"
 	%Label1.visible = false
 	%ProgressBar1.visible = false
@@ -529,3 +549,54 @@ func _on_upgrade_fire_bullets_pressed():
 			fire_bullets_upgrade_text = "Upgrade Fire Bullets"
 	else:
 		pass
+	
+func update_leaderboard():
+	print("Updating leaderboard...")
+	var http_request2 = HTTPRequest.new()
+	add_child(http_request2)
+	http_request2.request_completed.connect(self._on_request_completed2)
+
+	# Perform a GET request to fetch leaderboard data.
+	var error = http_request2.request("https://gameapi.dylan.lol/api/game/leaderboard")
+	if error != OK:
+		print("An error occurred in the HTTP request.")
+
+func _on_request_completed2(result, response_code, headers, body):
+	print("Request completed with response code:", response_code)
+	if response_code == 200:
+		var json = JSON.new()
+		json.parse(body.get_string_from_utf8())
+		var leaderboard_data = json.get_data()
+
+		if leaderboard_data:
+			leaderboard_data.sort_custom(_sort_players)
+			update_leaderboard_ui(leaderboard_data)
+		else:
+			print("Failed to parse leaderboard data.")
+	else:
+		print("Failed to fetch leaderboard data")
+
+func update_leaderboard_ui(leaderboard_data):
+	var player_position = len(leaderboard_data) + 1  # Default to the next position after all existing players
+
+	# Sort leaderboard data in descending order based on gold
+	leaderboard_data.sort_custom(_sort_players)
+
+	# Find the player's position in the sorted leaderboard data
+	for i in range(min(10, len(leaderboard_data))):
+		if game_points > leaderboard_data[i]["gold"]:
+			player_position = i + 1
+			break
+
+	# Display leaderboard data on labels 1 to 10
+	for i in range(10):
+		if i < len(leaderboard_data):
+			leaderboard_labels[i].text = str(i + 1) + ". " + leaderboard_data[i]["username"] + ": " + str(leaderboard_data[i]["gold"])
+		else:
+			leaderboard_labels[i].text = str(i + 1) + ". Nobody!"
+
+	# Display player's score and dynamic position
+	leaderboard_labels[10].text = str(player_position) + ". " + str(username) + ": " + str(game_points)
+
+func _sort_players(a, b):
+	return b["gold"] - a["gold"]

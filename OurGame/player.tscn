@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr62riwcjhn2l"]
+[gd_scene load_steps=16 format=3 uid="uid://dr62riwcjhn2l"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_fp1mf"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_tf31y"]
@@ -20,6 +20,10 @@ size = Vector2(20.2247, 20.7899)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ejw61"]
 radius = 34.0588
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h4whb"]
+radius = 17.588
+height = 35.176
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq1g3"]
 bg_color = Color(0.152941, 0.168627, 0.188235, 1)
@@ -92,8 +96,15 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, -2)
+position = Vector2(-2, -58)
+scale = Vector2(-1.47374, 1.26492)
 shape = SubResource("CircleShape2D_ejw61")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(9.31323e-09, -5)
+rotation = -1.59547
+scale = Vector2(0.864755, 1.87711)
+shape = SubResource("CapsuleShape2D_h4whb")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
@@ -140,3 +151,9 @@ offset_bottom = 15.0
 label_settings = SubResource("LabelSettings_133ji")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Username" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Player"

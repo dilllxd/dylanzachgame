@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=50 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -39,6 +39,19 @@ font_color = Color(0.0509804, 0.666667, 0.8, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqoqt"]
 font_size = 52
+font_color = Color(0.0509804, 0.666667, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ea15"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 0.878431)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_jd4kd"]
+font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_qluoo"]
 font_color = Color(0.0509804, 0.666667, 0.8, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dnr8n"]
@@ -438,6 +451,96 @@ text = "FPS: 0"
 label_settings = SubResource("LabelSettings_gqoqt")
 vertical_alignment = 2
 script = ExtResource("6_ybwrd")
+
+[node name="leaderboard" type="Control" parent="in_game/GameUI"]
+layout_mode = 3
+anchor_left = 0.983
+anchor_top = 0.03
+anchor_right = 0.983
+anchor_bottom = 0.03
+offset_left = -271.36
+offset_top = -0.400002
+offset_right = -271.36
+offset_bottom = -0.400002
+
+[node name="ProgressBar" type="ProgressBar" parent="in_game/GameUI/leaderboard"]
+layout_mode = 0
+offset_left = -8.0
+offset_right = 272.0
+offset_bottom = 369.0
+theme_override_styles/background = SubResource("StyleBoxFlat_7ea15")
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="in_game/GameUI/leaderboard"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 256.0
+offset_bottom = 360.0
+
+[node name="Leaderboard" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "Leaderboard"
+label_settings = SubResource("LabelSettings_jd4kd")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="1" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "1. Player Name"
+text_overrun_behavior = 3
+
+[node name="2" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "2. Player Name"
+text_overrun_behavior = 3
+
+[node name="3" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "3. Player Name"
+text_overrun_behavior = 3
+
+[node name="4" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "4. Player Name"
+text_overrun_behavior = 3
+
+[node name="5" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "5. Player Name"
+text_overrun_behavior = 3
+
+[node name="6" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "6. Player Name"
+text_overrun_behavior = 3
+
+[node name="7" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "7. Player Name"
+text_overrun_behavior = 3
+
+[node name="8" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "8. Player Name"
+text_overrun_behavior = 3
+
+[node name="9" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "9. Player Name"
+text_overrun_behavior = 3
+
+[node name="10" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "10. Player Name"
+text_overrun_behavior = 3
+
+[node name="11" type="Label" parent="in_game/GameUI/leaderboard/VBoxContainer"]
+layout_mode = 2
+text = "11. Player Name"
+label_settings = SubResource("LabelSettings_qluoo")
+text_overrun_behavior = 3
 
 [node name="UpgradeUI" type="CanvasLayer" parent="in_game"]
 visible = false
@@ -1213,7 +1316,7 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
