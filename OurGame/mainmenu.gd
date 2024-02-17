@@ -44,7 +44,11 @@ var more_damage_upgrade_text = "Upgrade More Damage"
 
 var after_purchase_points = null
 
-@onready var username = get_node("/root/Game/Player/Username")
+var music_pos = 0.0
+
+var username = null
+
+@onready var username_label = get_node("/root/Game/Player/Username")
 @onready var end_of_game_screen = $end_game/GameOver
 @onready var in_game_screen = $in_game/GameUI
 @onready var main_menu = $main_menu/MenuUI
@@ -131,6 +135,8 @@ func send_points():
 func _on_request_completed(_result, response_code, _headers, _body):
 	if response_code == 200:
 		get_tree().reload_current_scene()
+		$PlayingAudioLoop.stop()
+		music_pos = 0.0
 	else:
 		end_of_game_screen.visible = false
 		save_failed.visible = true
@@ -147,6 +153,7 @@ func _on_play_button_pressed():
 		%ProgressBar1.visible = false
 		in_game_screen.visible = true
 		game_started.emit()
+		$PlayingAudioLoop.play()
 
 func _on_game_game_has_started():
 	main_menu.visible = false
@@ -164,13 +171,30 @@ func _on_back_button_pressed():
 	main_menu.visible = true
 
 func _on_save_username_pressed():
-	username = $settings/SettingsUI/ColorRect/UsernameField.text
-	update_leaderboard()
-	$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Success!"
-	%Label1.visible = false
-	%ProgressBar1.visible = false
-	await get_tree().create_timer(3).timeout
-	$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Save Username"
+	if $settings/SettingsUI/ColorRect/UsernameField.text == "":
+		var hardware_identifier = generate_hardware_identifier()
+		username = "Player_" + hardware_identifier
+		username_label.text = username
+		update_leaderboard()
+		$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Success!"
+		%Label1.visible = false
+		%ProgressBar1.visible = false
+		await get_tree().create_timer(3).timeout
+		$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Save Username"
+	else:
+		username = $settings/SettingsUI/ColorRect/UsernameField.text
+		username_label.text = username
+		update_leaderboard()
+		$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Success!"
+		%Label1.visible = false
+		%ProgressBar1.visible = false
+		await get_tree().create_timer(3).timeout
+		$settings/SettingsUI/ColorRect/SaveUsername/Label.text = "Save Username"
+
+func generate_hardware_identifier():
+	var hw_identifier = OS.get_name() + OS.get_unique_id()
+	var hashed_identifier = hash(hw_identifier)
+	return "%x" % hashed_identifier
 
 func _on_restart_anyway_button_pressed():
 	get_tree().reload_current_scene()
@@ -193,11 +217,11 @@ func _process(delta):
 				if upgrade_screen.visible:
 					upgrade_screen.visible = false
 					get_tree().paused = false
-					print("upgrade set to invisible")
+					$PlayingAudioLoop.volume_db = 0
 				else:
 					upgrade_screen.visible = true
 					get_tree().paused = true
-					print("upgrade set to visible")
+					$PlayingAudioLoop.volume_db = -15
 				last_toggle_time = 0
 
 	if Input.is_action_pressed("ui_pause") and in_game_screen.visible:
@@ -205,16 +229,16 @@ func _process(delta):
 			if upgrade_screen.visible:
 				upgrade_screen.visible = false
 				get_tree().paused = false
-				print("upgrade set to invisible")
+				$PlayingAudioLoop.volume_db = 0
 			elif pause_screen.visible:
 				pause_screen.visible = false
 				get_tree().paused = false
-				print("pause set to invisible")
+				$PlayingAudioLoop.volume_db = 0
 				escape_key_pressed = false
 			else:
 				pause_screen.visible = true
 				get_tree().paused = true
-				print("pause set to visible")
+				$PlayingAudioLoop.volume_db = -15
 				escape_key_pressed = true
 			last_toggle_time = 0
 
@@ -223,6 +247,7 @@ func _on_quit_game_from_pause_pressed():
 
 func _on_resume_game_from_pause_pressed():
 	pause_screen.visible = false
+	$PlayingAudioLoop.volume_db = 0
 	get_tree().paused = false
 
 func _on_upgrade_shotgun_pressed():
@@ -551,7 +576,7 @@ func _on_upgrade_fire_bullets_pressed():
 		pass
 	
 func update_leaderboard():
-	print("Updating leaderboard...")
+	#print("Updating leaderboard...")
 	var http_request2 = HTTPRequest.new()
 	add_child(http_request2)
 	http_request2.request_completed.connect(self._on_request_completed2)
@@ -561,8 +586,8 @@ func update_leaderboard():
 	if error != OK:
 		print("An error occurred in the HTTP request.")
 
-func _on_request_completed2(result, response_code, headers, body):
-	print("Request completed with response code:", response_code)
+func _on_request_completed2(_result, response_code, _headers, body):
+	#print("Request completed with response code:", response_code)
 	if response_code == 200:
 		var json = JSON.new()
 		json.parse(body.get_string_from_utf8())
@@ -600,3 +625,6 @@ func update_leaderboard_ui(leaderboard_data):
 
 func _sort_players(a, b):
 	return b["gold"] - a["gold"]
+
+func _on_playing_audio_loop_finished():
+	$PlayingAudioLoop.play()

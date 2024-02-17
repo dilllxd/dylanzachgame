@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b32glqlj34qgx"]
+[gd_scene load_steps=51 format=3 uid="uid://b32glqlj34qgx"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_nk1tt"]
 [ext_resource type="Texture2D" uid="uid://jvke7c1da331" path="res://main_menu/label_new_game.png" id="2_bkycp"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime.tscn" id="4_hvi3l"]
 [ext_resource type="Texture2D" uid="uid://caqfk2xng5v5u" path="res://trees/pine_tree.png" id="5_d1dsl"]
 [ext_resource type="Script" path="res://fps_counter.gd" id="6_ybwrd"]
+[ext_resource type="AudioStream" uid="uid://b51xfo5jvt16t" path="res://main_menu/Theme1.wav" id="7_aaqlx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kswcu"]
 font_size = 52
@@ -421,14 +422,15 @@ visible = false
 [node name="in_game_score" type="Node2D" parent="in_game/GameUI"]
 
 [node name="score" type="Label" parent="in_game/GameUI/in_game_score"]
+visible = false
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 223.0
 offset_bottom = 88.0
-text = "Points: 0"
 label_settings = SubResource("LabelSettings_inano")
 
 [node name="points" type="Label" parent="in_game/GameUI/in_game_score"]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -443,10 +445,10 @@ text = "0"
 [node name="in_game_fps" type="Node2D" parent="in_game/GameUI"]
 
 [node name="fps_counter" type="Label" parent="in_game/GameUI/in_game_fps"]
-offset_left = 8.0
-offset_top = 88.0
-offset_right = 233.0
-offset_bottom = 160.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 241.0
+offset_bottom = 80.0
 text = "FPS: 0"
 label_settings = SubResource("LabelSettings_gqoqt")
 vertical_alignment = 2
@@ -1200,6 +1202,9 @@ offset_right = 448.64
 offset_bottom = 64.28
 theme_override_font_sizes/font_size = 24
 placeholder_text = "Write your twitch username here!"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
 
 [node name="save_failed" type="Node2D" parent="."]
 
@@ -1302,6 +1307,9 @@ offset_bottom = 39.64
 text = "Points: 0"
 label_settings = SubResource("LabelSettings_kswcu")
 
+[node name="PlayingAudioLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_aaqlx")
+
 [connection signal="pressed" from="end_game/GameOver/ColorRect/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="main_menu/MenuUI/ColorRect/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="main_menu/MenuUI/ColorRect/PlayButton" to="." method="_on_play_button_pressed"]
@@ -1316,7 +1324,8 @@ label_settings = SubResource("LabelSettings_kswcu")
 [connection signal="pressed" from="in_game/PauseUI/ColorRect/QuitGameFromPause" to="." method="_on_quit_game_from_pause_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings/SettingsUI/ColorRect/SaveUsername" to="." method="_on_save_username_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/RestartAnywayButton" to="." method="_on_restart_anyway_button_pressed"]
 [connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="save_failed/SaveFailed/ColorRect/SaveFailedLabel/SaveAgainButton" to="." method="_on_save_again_button_pressed"]
+[connection signal="finished" from="PlayingAudioLoop" to="." method="_on_playing_audio_loop_finished"]

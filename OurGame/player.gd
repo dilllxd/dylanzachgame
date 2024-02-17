@@ -30,6 +30,7 @@ const LIFE_STEAL_AMOUNT = 5
 
 func _ready():
 	ui.game_started.connect(_started)
+	gun.bullet_hit.connect(checklifesteal)
 
 func _started():
 	started = true
@@ -90,7 +91,6 @@ func checkhealth():
 func _process(delta):
 	%Health.text = str(round(health))
 	%XP.text = str(xp_level)
-	gun.bullet_hit.connect(checklifesteal)
 	if not started and in_game_screen.visible == false:
 		return
 	elif started == true and in_game_screen.visible == true:

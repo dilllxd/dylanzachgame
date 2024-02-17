@@ -146,13 +146,13 @@ func spawn_mob2():
 
 func _on_mob_timer_timeout():
 	if number_of_mobs < maxnumber_of_mobs:
-		spawn_mob()
+		call_deferred("spawn_mob")
 	else:
 		pass
 
 func _on_mob_2_timer_timeout():
 	if number_of_mobs2 < maxnumber_of_mobs2:
-		spawn_mob2()
+		call_deferred("spawn_mob2")
 	else:
 		pass
 	
@@ -167,7 +167,7 @@ func _on_mob_died():
 	mob2_xp_scaling()
 	player.currentxplevel(xp_level)
 	if number_of_mobs < maxnumber_of_mobs:
-		spawn_mob()
+		call_deferred("spawn_mob")
 
 func _on_mob_died2():
 	number_of_mobs2 -= 1
@@ -180,7 +180,7 @@ func _on_mob_died2():
 	mob2_xp_scaling()
 	player.currentxplevel(xp_level)
 	if number_of_mobs2 < maxnumber_of_mobs2:
-		spawn_mob2()
+		call_deferred("spawn_mob2")
 	
 func update_xp():
 	xp += 1

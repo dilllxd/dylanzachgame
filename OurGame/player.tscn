@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dr62riwcjhn2l"]
+[gd_scene load_steps=17 format=3 uid="uid://dr62riwcjhn2l"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_fp1mf"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_tf31y"]
@@ -57,6 +57,8 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_133ji"]
 font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_1elxm"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_fp1mf")
@@ -153,7 +155,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Username" type="Label" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -80.0
+offset_top = -192.0
+offset_right = 80.0
+offset_bottom = -160.0
 text = "Player"
+label_settings = SubResource("LabelSettings_1elxm")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
