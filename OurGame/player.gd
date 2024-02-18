@@ -108,10 +108,8 @@ func _process(delta):
 		move_and_slide()
 		if velocity.length() > 0.0:
 			%HappyBoo.play_walk_animation()
-			print("player walk animation played")
 		else:
 			%HappyBoo.play_idle_animation()
-			print("player idle animation played")
 			
 		const DAMAGE_RATE = 5.0
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()

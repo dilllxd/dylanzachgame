@@ -70,9 +70,7 @@ var leaderboard_labels = []
 func _ready():
 	load_game_version()
 	%HappyBoo.play_idle_animation()
-	print("idle boo animation on mainmenu")
 	%Slime.play_walk()
-	print("walk slime animation on mainmenu")
 	
 	for i in range(1, 12):  # Assuming 11 labels numbered 1 through 11
 		var label_node_path = "/root/Game/UI/in_game/GameUI/leaderboard/VBoxContainer/" + str(i)
