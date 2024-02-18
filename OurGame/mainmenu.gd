@@ -58,10 +58,17 @@ var username = null
 @onready var pause_screen = $in_game/PauseUI
 @onready var gun = get_node("/root/Game/Player/Gun")
 @onready var player = get_node("/root/Game/Player")
+@onready var smoke = preload("res://smoke_explosion/smoke_explosion.tscn")
+
+const EXPORT_CONFIG_URL := "https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg"
+const EXPORT_CONFIG_METADATA_SECTION := "metadata"
+
+var version = null
 
 var leaderboard_labels = []
 
 func _ready():
+	load_game_version()
 	%HappyBoo.play_idle_animation()
 	%Slime.play_walk()
 	
@@ -81,6 +88,31 @@ func _ready():
 	update_timer.connect("timeout", update_leaderboard)
 	add_child(update_timer)
 	update_timer.start()
+
+func load_game_version():
+	var version_request = HTTPRequest.new()
+	add_child(version_request)
+	version_request.request_completed.connect(self._on_version_request_completed)
+
+	# Perform a GET request to fetch leaderboard data.
+	var error = version_request.request("https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg")
+	if error != OK:
+		print("An error occurred in the HTTP request.")
+
+func _on_version_request_completed(result, response_code, headers, body):
+	if result != OK:
+		print("Failed to fetch game metadata")
+		return
+	else:
+		var body_str = body.get_string_from_utf8()  # Convert PackedByteArray to string
+		var version_line = body_str.strip_edges().split("=")  # Splitting into key-value pair
+		if version_line.size() > 1:
+			var version = version_line[1].strip_edges()  # Extracting version string
+			version = version.substr(1, version.length() - 2)  # Removing surrounding quotes
+			$main_menu/MenuUI/ColorRect/VersionLabel.text = version
+			$in_game/GameUI/Version.text = version
+		else:
+			print("Version information not found in metadata")
 
 func update_points(points):
 	game_points += points
