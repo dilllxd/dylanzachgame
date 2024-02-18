@@ -44,6 +44,7 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: build/windows
+          VERSION: ${{ env.GAME_VERSION }}
       - name: Zip for Release
         run: |
           cd build
@@ -94,6 +95,7 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: build/linux
+          VERSION: ${{ env.GAME_VERSION }}
       - name: Zip for Release
         run: |
           cd build
@@ -144,6 +146,7 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: build/web
+          VERSION: ${{ env.GAME_VERSION }}
       - name: Zip for Release
         run: |
           cd build
