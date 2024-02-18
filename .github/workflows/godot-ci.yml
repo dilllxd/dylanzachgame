@@ -20,7 +20,7 @@ jobs:
       - name: Set Game Version
         id: set_game_version
         run: |
-          GAME_VERSION=$(curl -sSL https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
+          GAME_VERSION=$(wget -qO- https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
           echo "GAME_VERSION=$GAME_VERSION" >> $GITHUB_ENV
       - name: Setup
         run: |
@@ -70,7 +70,7 @@ jobs:
       - name: Set Game Version
         id: set_game_version
         run: |
-          GAME_VERSION=$(curl -sSL https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
+          GAME_VERSION=$(wget -qO- https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
           echo "GAME_VERSION=$GAME_VERSION" >> $GITHUB_ENV
       - name: Setup
         run: |
@@ -120,7 +120,7 @@ jobs:
       - name: Set Game Version
         id: set_game_version
         run: |
-          GAME_VERSION=$(curl -sSL https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
+          GAME_VERSION=$(wget -qO- https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg | awk -F= '/version/{gsub(/"/, "", $2); print $2}')
           echo "GAME_VERSION=$GAME_VERSION" >> $GITHUB_ENV
       - name: Setup
         run: |
