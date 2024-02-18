@@ -43,7 +43,7 @@ func _ready():
 		health = 6
 		speedbasedonxp = 450
 
-func _process(_delta):
+func _physics_process(_delta):
 	var direction = global_position.direction_to(player.global_position)
 	velocity = direction * speedbasedonxp
 	move_and_slide()

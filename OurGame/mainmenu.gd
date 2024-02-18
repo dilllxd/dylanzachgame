@@ -239,7 +239,7 @@ var escape_key_pressed = false
 var last_toggle_time = 0
 var toggle_delay = 0.2 # Adjust this value as needed
 
-func _process(delta):
+func _physics_process(delta):
 	last_toggle_time += delta
 	update_ui()
 

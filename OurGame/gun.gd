@@ -16,7 +16,7 @@ var mouse_position = Vector2()
 
 signal bullet_hit
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if player_health.value > 0:
 		# Calculate rotation based on mouse input
 		var mouse_direction = get_global_mouse_position() - global_position
@@ -34,6 +34,24 @@ func _physics_process(_delta):
 			rotation = mouse_angle
 	else:
 		return
+		
+	if Input.is_action_pressed("fire_shot"):
+		mouse_left_down = true
+		time_held_down += delta
+
+		# Enable auto-shooting after the delay
+		if time_held_down >= auto_shoot_delay:
+			canShoot = true
+
+		if canShoot and player_health.value > 0 and main_menu.visible == false and settings.visible == false:
+			time_since_last_shot += delta * 1000 # Convert delta to milliseconds
+			if time_since_last_shot >= shoot_interval:
+				shoot()
+				time_since_last_shot = 0
+	elif Input.is_action_just_released("fire_shot"):
+		mouse_left_down = false
+		time_held_down = 0
+		canShoot = false
 
 func upgradeshotgun(level):
 	shotgun_level = level
@@ -77,23 +95,3 @@ func _input(event):
 	elif event.is_action_released("fire_shot"):
 		mouse_left_down = false
 		canShoot = false # Reset auto-shooting flag when mouse button is released
-
-func _process(delta):
-	if Input.is_action_pressed("fire_shot"):
-		mouse_left_down = true
-		time_held_down += delta
-
-		# Enable auto-shooting after the delay
-		if time_held_down >= auto_shoot_delay:
-			canShoot = true
-
-		if canShoot and player_health.value > 0 and main_menu.visible == false and settings.visible == false:
-			time_since_last_shot += delta * 1000 # Convert delta to milliseconds
-			if time_since_last_shot >= shoot_interval:
-				shoot()
-				time_since_last_shot = 0
-	elif Input.is_action_just_released("fire_shot"):
-		mouse_left_down = false
-		time_held_down = 0
-		canShoot = false
-

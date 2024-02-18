@@ -24,7 +24,7 @@ var spawn_points = []
 
 signal game_has_started
 
-func _process(delta):
+func _physics_process(delta):
 	spawn_update_timer += delta
 	if spawn_update_timer >= SPAWN_UPDATE_INTERVAL:
 		update_spawn_points()

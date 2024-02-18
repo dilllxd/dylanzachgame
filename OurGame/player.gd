@@ -88,7 +88,7 @@ func checkhealth():
 	else:
 		pass
 
-func _process(delta):
+func _physics_process(delta):
 	%Health.text = str(round(health))
 	%XP.text = str(xp_level)
 	if not started and in_game_screen.visible == false:
