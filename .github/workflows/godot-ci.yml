@@ -133,6 +133,9 @@ jobs:
           mkdir -v -p build/web
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "HTML5" ../build/web/index.html
+      - name: Install rsync 📚
+        run: |
+          apt-get update && apt-get install -y rsync
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
@@ -147,6 +150,18 @@ jobs:
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: build/web
           VERSION: ${{ env.GAME_VERSION }}
+      - name: Enable SharedArrayBuffer for GitHub Pages
+        run: |
+          cd ./build/web
+          apt-get install -y curl
+          curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
+      - name: Deploy GH Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          single-commit: true
+          folder: build/web
       - name: Zip for Release
         run: |
           cd build

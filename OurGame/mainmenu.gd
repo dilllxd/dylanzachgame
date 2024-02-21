@@ -58,7 +58,6 @@ var username = null
 @onready var pause_screen = $in_game/PauseUI
 @onready var gun = get_node("/root/Game/Player/Gun")
 @onready var player = get_node("/root/Game/Player")
-@onready var smoke = preload("res://smoke_explosion/smoke_explosion.tscn")
 
 const EXPORT_CONFIG_URL := "https://raw.githubusercontent.com/dilllxd/dylanzachgame/main/OurGame/version.cfg"
 const EXPORT_CONFIG_METADATA_SECTION := "metadata"
